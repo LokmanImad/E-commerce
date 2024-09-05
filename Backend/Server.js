@@ -13,7 +13,7 @@ app.use(express.json());
 // Routes utilisateur
 app.use('/api/users', userRoutes);
 
-// Connexion à MongoDB
+
 // Connect to MongoDB database
 mongoose.connect('mongodb://localhost:27017/Erotman')
 .then(() => {
