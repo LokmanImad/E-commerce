@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const AddProduit = ()  => {
+const AddProduit = () => {
   const [formData, setFormData] = useState({
     nom: '',
     description: '',
@@ -13,18 +13,26 @@ const AddProduit = ()  => {
     image: ''
   });
 
-  const { id } = useParams(); // Get the product ID from the URL
+  const { id } = useParams(); // Récupérer l'ID du produit à modifier
   const navigate = useNavigate();
 
   useEffect(() => {
     if (id) {
-      // If there's an ID, fetch the product data and pre-fill the form
+      // Si un ID est présent, on récupère les données du produit à modifier
       const fetchProduct = async () => {
         try {
-          const response = await axios.get(`http://localhost:5000/api/produit/${id}`);
-          setFormData(response.data);
+          const response = await axios.get(`http://localhost:5000/api/produit/productDetails/${id}`);
+          const productData = response.data;
+          setFormData({
+            nom: productData.nom || '',
+            description: productData.description || '',
+            prix: productData.prix || '',
+            stock: productData.stock || '',
+            categories: productData.categories || '',
+            image: productData.image || ''
+          });
         } catch (error) {
-          console.error("Error fetching product:", error);
+          console.error("Erreur lors de la récupération du produit :", error);
         }
       };
       fetchProduct();
@@ -39,15 +47,15 @@ const AddProduit = ()  => {
     e.preventDefault();
     try {
       if (id) {
-        // If there's an ID, update the existing product
+        // Si un ID est présent, on est en mode modification
         await axios.put(`http://localhost:5000/api/produit/modifier/${id}`, formData);
       } else {
-        // Otherwise, create a new product
+        // Sinon, on crée un nouveau produit
         await axios.post("http://localhost:5000/api/produit/ajouter", formData);
       }
-      navigate(-1); // Redirect back to product list
+      navigate('/produit'); // Redirection vers la liste des produits
     } catch (error) {
-      console.error("Error submitting form:", error);
+      console.error("Erreur lors de la soumission du formulaire :", error);
     }
   };
 

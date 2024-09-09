@@ -35,6 +35,8 @@ function App() {
         <Route path="/login" element={<Authentification/>}/>
         <Route path="/Profil" element={<AppClient/>}/>
         <Route path="/Panier" element={<Panier/>}/>
+        <Route path="/Client" element={<AppClient/>}/>
+        
         
       </Routes>
     </Router>

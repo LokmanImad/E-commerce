@@ -18,7 +18,7 @@ const Details = () => {
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/produit/${id}`);
+        const response = await axios.get(`http://localhost:5000/api/produit/productDetails/${id}`);
         setProduct(response.data);
 
         // Fetch related products based on the category or some criteria

@@ -20,14 +20,14 @@ const Panier = () => {
         const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
         const productIds = storedCart.map(item => item.produitId);
     
-        console.log(storedCart);
-        console.log(productIds);
+        console.log('IDs des produits dans le panier :', productIds);
     
         if (productIds.length > 0) {
-          // Assurez-vous que les IDs sont bien formatés en ObjectId (24 caractères)
           const validProductIds = productIds.filter(id => id.length === 24);
     
           if (validProductIds.length > 0) {
+            console.log('IDs valides envoyés à l\'API :', validProductIds);
+    
             const response = await axios.get('http://localhost:5000/api/produit/par-ids', {
               params: { ids: validProductIds.join(',') }
             });
