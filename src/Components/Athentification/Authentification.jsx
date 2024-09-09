@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios'; // Si vous utilisez axios pour les requêtes HTTP
 import './Authentification.css';
+import { useNavigate } from 'react-router-dom'; // Pour rediriger après la connexion
 
 const Authentification = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -10,6 +11,7 @@ const Authentification = () => {
     password: ''
   });
   const [message, setMessage] = useState('');
+  const navigate = useNavigate(); // Utilisé pour rediriger après la connexion
 
   const handleToggle = () => {
     setIsLogin(!isLogin);
@@ -23,16 +25,39 @@ const Authentification = () => {
     });
   };
 
+  // Fonction pour réinitialiser les champs de formulaire
+  const resetForm = () => {
+    setFormData({
+      name: '',
+      email: '',
+      password: ''
+    });
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const url = isLogin ? '/login' : '/register';
+      console.log('Envoi des données à :', `http://localhost:5000/api/users${url}`);
+      console.log('FormData:', formData);
+  
       const response = await axios.post(`http://localhost:5000/api/users${url}`, formData);
-
+      console.log('Réponse de l\'API:', response);
+  
       if (response.status === 201 || response.status === 200) {
-        setMessage(isLogin ? 'Connexion réussie' : 'Inscription réussie');
+        if (isLogin) {
+          const { token, user } = response.data;
+          localStorage.setItem('token', token);
+          localStorage.setItem('user', JSON.stringify(user));
+          navigate('/');
+        } else {
+          setMessage('Inscription réussie, veuillez vous connecter.');
+          setIsLogin(true);
+        }
+        resetForm();
       }
     } catch (error) {
+      console.error('Erreur lors de la requête:', error.response?.data || error.message);
       setMessage(error.response?.data?.message || 'Erreur lors de la requête');
     }
   };
@@ -69,11 +94,25 @@ const Authentification = () => {
                 <form onSubmit={handleSubmit}>
                   <div className="mb-3">
                     <label htmlFor="email" className="form-label">Email</label>
-                    <input type="email" id="email" className="form-control" onChange={handleChange} required />
+                    <input 
+                      type="email" 
+                      id="email" 
+                      className="form-control" 
+                      value={formData.email} 
+                      onChange={handleChange} 
+                      required 
+                    />
                   </div>
                   <div className="mb-3">
                     <label htmlFor="password" className="form-label">Mot de passe</label>
-                    <input type="password" id="password" className="form-control" onChange={handleChange} required />
+                    <input 
+                      type="password" 
+                      id="password" 
+                      className="form-control" 
+                      value={formData.password} 
+                      onChange={handleChange} 
+                      required 
+                    />
                   </div>
                   <button type="submit" className="btn btn-primary">Se connecter</button>
                 </form>
@@ -84,15 +123,36 @@ const Authentification = () => {
                 <form onSubmit={handleSubmit}>
                   <div className="mb-3">
                     <label htmlFor="name" className="form-label">Nom complet</label>
-                    <input type="text" id="name" className="form-control" onChange={handleChange} required />
+                    <input 
+                      type="text" 
+                      id="name" 
+                      className="form-control" 
+                      value={formData.name} 
+                      onChange={handleChange} 
+                      required 
+                    />
                   </div>
                   <div className="mb-3">
                     <label htmlFor="email" className="form-label">Email</label>
-                    <input type="email" id="email" className="form-control" onChange={handleChange} required />
+                    <input 
+                      type="email" 
+                      id="email" 
+                      className="form-control" 
+                      value={formData.email} 
+                      onChange={handleChange} 
+                      required 
+                    />
                   </div>
                   <div className="mb-3">
                     <label htmlFor="password" className="form-label">Mot de passe</label>
-                    <input type="password" id="password" className="form-control" onChange={handleChange} required />
+                    <input 
+                      type="password" 
+                      id="password" 
+                      className="form-control" 
+                      value={formData.password} 
+                      onChange={handleChange} 
+                      required 
+                    />
                   </div>
                   <button type="submit" className="btn btn-primary">S'enregistrer</button>
                 </form>

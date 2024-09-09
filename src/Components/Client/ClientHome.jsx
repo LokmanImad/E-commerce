@@ -1,12 +1,10 @@
 import React from "react";
-import Produit from "./Produit/Produit";
-import ProjetsPage from "./Projets/ProjetsPage";
-import AddProduit from "./Produit/AddProduit";
 
 
 
 
-const AdminHome = ({ activeContent }) => {
+
+const ClientHome = ({ activeContent }) => {
 //   const navigate = useNavigate();
 
 //   const [UserConect, setUserConect] = useState(null);
@@ -86,13 +84,13 @@ const AdminHome = ({ activeContent }) => {
             </div>
           </>
         )}
-        {activeContent === "Produit" &&  <Produit/>}
+        {/* {activeContent === "Produit" &&  <Produit/>}
         {activeContent === "Projets" && <ProjetsPage/>}
         {activeContent === "AddProduit" && <AddProduit/>}
-        {activeContent === "Tasks" && <ShowLists />}
+        {activeContent === "Tasks" && <ShowLists />} */}
       </div>
     </div>
   );
 };
 
-export default AdminHome;
+export default ClientHome;

@@ -3,6 +3,8 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import userRoutes from './routers/UserRouter.js';
+import produitRoutes from './routers/ProduitRouter.js';
+import panierRoutes from './routers/PanierRouter.js';
 
 dotenv.config();
 
@@ -12,6 +14,8 @@ app.use(express.json());
 
 // Routes utilisateur
 app.use('/api/users', userRoutes);
+app.use('/api/produit', produitRoutes);
+app.use('/api/panier', panierRoutes);
 
 
 // Connect to MongoDB database

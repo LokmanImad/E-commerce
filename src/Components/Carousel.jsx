@@ -40,7 +40,7 @@ const Carousel= () => {
   };
 
   return (
-    <div className="logo-carousel-section" style={{ backgroundColor: '#ffffff', padding: '20px 0' }}>
+    <div className="logo-carousel-section" style={{ backgroundColor: '#ffffff', padding: '20px 0'  }}>
       <div className="container">
         <Slider {...settings} className="logo-carousel-inner">
           <div className="single-logo-item">

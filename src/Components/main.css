@@ -520,6 +520,15 @@ a.boxed-btn, a.bordered-btn, a.cart-btn {
 # Header Styles
 
 ----------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* --------------------------- */
+
+
 ul.navbar-nav li.nav-item a.nav-link, ul.navbar-nav li.nav-item.active a.nav-link {
   color: #051922;
 }
@@ -850,9 +859,23 @@ a.mobile-show {
 
 /* -----------------------------------------------------------------------------
 
+
+
+
+
+
 # Footer Styles
 
 ----------------------------------------------------------------------------- */
+
+
+
+
+
+
+
+
+/* ------ */
 .single-logo-item img {
   max-width: 180px;
   margin: 0 auto;

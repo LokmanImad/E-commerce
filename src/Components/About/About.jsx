@@ -2,10 +2,12 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import './main.css'; // Import your CSS file
+import Menu from '../Menu';
 
 function About() {
   return (
     <>
+    <Menu/>
       {/* breadcrumb-section */}
       <div className="breadcrumb-section breadcrumb-bg">
         <div className="container">

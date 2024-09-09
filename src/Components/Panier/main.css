@@ -1250,26 +1250,6 @@ a.cart-btn:hover {
   color: #F28123;
 }
 
-/* bouton */
-
-button.cart-btn {
-  -webkit-transition: 0.3s;
-  -o-transition: 0.3s;
-  transition: 0.3s;
-  color: #ffffff;
-  background-color:  #F28123;
-  border-radius: 30px;
-  width: 150px;
-  height: 50px;
-  border-color:  #F28123;
-}
-
-button.cart-btn:hover {
-  background-color: #051922;
-  color: #F28123;
-}
-
-
 .recent-posts ul li {
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;

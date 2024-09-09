@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import './main.css'; // Assurez-vous de créer un fichier CSS séparé pour les styles
 import Carousel from './Carousel';
+import Menu from './Menu';
 
 
 
@@ -140,7 +141,7 @@ const ShopBanner = () => {
 const Home = () => {
   return (
     <>
-       
+        <Menu/>
         <First/>
         <Test/>
       <AdvertisementSection />

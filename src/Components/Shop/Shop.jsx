@@ -1,46 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './main.css';
+import { Link } from 'react-router-dom';
+import Menu from '../Menu';
 
 const Shop = () => {
+  const [products, setProducts] = useState([]);
   const [activeFilter, setActiveFilter] = useState('*');
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const productsPerPage = 16;
+
+  // Fetch products from the backend
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get('http://localhost:5000/api/produit/'); // Update with your actual API URL
+        setProducts(response.data);
+      } catch (err) {
+        setError('Failed to fetch products');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   const handleFilterChange = (filter) => {
     setActiveFilter(filter);
     setCurrentPage(1); // Reset to first page on filter change
   };
 
-  const products = [
-    { id: 1, name: 'Strawberry', price: 85, category: 'strawberry', img: 'assets/img/products/product-img-1.jpg' },
-    { id: 2, name: 'Berry', price: 70, category: 'berry', img: 'assets/img/products/product-img-2.jpg' },
-    { id: 3, name: 'Lemon', price: 35, category: 'lemon', img: 'assets/img/products/product-img-3.jpg' },
-    { id: 4, name: 'Avocado', price: 50, category: 'avocado', img: 'assets/img/products/product-img-4.jpg' },
-    { id: 5, name: 'Green Apple', price: 45, category: 'apple', img: 'assets/img/products/product-img-5.jpg' },
-    
-    { id: 6, name: 'Strawberry', price: 80, category: 'strawberry', img: 'assets/img/products/product-img-6.jpg' },
-    { id: 7, name: 'Strawberry', price: 80, category: 'strawberry', img: 'assets/img/products/product-img-6.jpg' },
-    { id: 8, name: 'Strawberry', price: 80, category: 'strawberry', img: 'assets/img/products/product-img-6.jpg' },
-    { id: 9, name: 'Strawberry', price: 80, category: 'strawberry', img: 'assets/img/products/product-img-6.jpg' },
-    { id: 10, name: 'Strawberry', price: 80, category: 'strawberry', img: 'assets/img/products/product-img-6.jpg' },
-    { id: 11, name: 'Strawberry', price: 80, category: 'strawberry', img: 'assets/img/products/product-img-6.jpg' },
-    { id: 12, name: 'Strawberry', price: 80, category: 'strawberry', img: 'assets/img/products/product-img-6.jpg' },
-    { id: 13, name: 'Strawberry', price: 80, category: 'strawberry', img: 'assets/img/products/product-img-6.jpg' },
-    { id: 14, name: 'Strawberry', price: 80, category: 'strawberry', img: 'assets/img/products/product-img-6.jpg' },
-    { id: 15, name: 'Strawberry', price: 80, category: 'strawberry', img: 'assets/img/products/product-img-6.jpg' },
-    { id: 16, name: 'Strawberry', price: 80, category: 'strawberry', img: 'assets/img/products/product-img-6.jpg' },
-    { id: 17, name: 'Strawberry', price: 80, category: 'strawberry', img: 'assets/img/products/product-img-6.jpg' },
-    { id: 18, name: 'Strawberry', price: 80, category: 'strawberry', img: 'assets/img/products/product-img-6.jpg' },
-    { id: 20, name: 'Strawberry', price: 80, category: 'strawberry', img: 'assets/img/products/product-img-6.jpg' },
-   
-
-  ];
-
   // Filtering products based on the active filter
   const filteredProducts = activeFilter === '*'
     ? products
-    : products.filter(product => product.category === activeFilter);
+    : products.filter(product => product.categories === activeFilter);
 
   // Calculate the products to show on the current page
   const indexOfLastProduct = currentPage * productsPerPage;
@@ -54,9 +52,18 @@ const Shop = () => {
     setCurrentPage(pageNumber);
   };
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
   return (
     <div>
       {/* Breadcrumb Section */}
+      <Menu/>
       <div className="breadcrumb-section breadcrumb-bg">
         <div className="container">
           <div className="row">
@@ -88,18 +95,20 @@ const Shop = () => {
 
           <div className="row product-lists">
             {currentProducts.map((product) => (
-              <div key={product.id} className="col-lg-3 col-md-6 text-center">
+              <div key={product._id} className="col-lg-3 col-md-6 text-center">
                 <div className="single-product-item">
                   <div className="product-image">
                     <a href="single-product.html">
-                      <img src={product.img} alt={product.name} />
+                    <Link to={`/produit/${product._id}`}>
+                  <img src={product.image} alt={product.nom} />
+                </Link>
                     </a>
                   </div>
-                  <h3>{product.name}</h3>
-                  <p className="product-price"><span>Per Kg</span> {product.price}$</p>
-                  <a href="cart.html" className="cart-btn">
-                    <i className="fas fa-shopping-cart"></i> Add to Cart
-                  </a>
+                  <h3>{product.nom}</h3>
+                  <p className="product-price"><span>Per Unit</span> {product.prix}$</p>
+                  <Link to={`/produit/${product._id}`} className="cart-btn">
+                <i className="fas fa-shopping-cart"></i> View Details
+              </Link>
                 </div>
               </div>
             ))}
