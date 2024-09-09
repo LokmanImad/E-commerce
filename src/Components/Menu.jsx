@@ -13,6 +13,11 @@ const Menu= () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const updateCartCount = () => {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      setCartCount(cart.reduce((total, item) => total + item.quantite, 0));
+    };
+
     const token = localStorage.getItem('token');
     if (token) {
       setIsLoggedIn(true);
@@ -20,9 +25,17 @@ const Menu= () => {
       setIsLoggedIn(false);
     }
 
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    setCartCount(cart.reduce((total, item) => total + item.quantite, 0));
+    updateCartCount();
+
+    // Add event listener for cartUpdated event
+    window.addEventListener('cartUpdated', updateCartCount);
+
+    return () => {
+      window.removeEventListener('cartUpdated', updateCartCount);
+    };
   }, []);
+
+  
 
   const handleLogout = () => {
     localStorage.removeItem('token'); // Remove token from localStorage

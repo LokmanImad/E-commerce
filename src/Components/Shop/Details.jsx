@@ -39,25 +39,19 @@ const Details = () => {
 
   // Add product to cart
   const handleAddToCart = () => {
-    // Récupérer le panier actuel depuis le localStorage
-
     if (!isAuthenticated()) {
-      // Rediriger vers la page de connexion ou afficher un message d'erreur
       toast.error("Vous devez être connecté pour ajouter un produit au panier.");
-      navigate('/login'); // Rediriger vers la page de connexion
+      navigate('/login');
       return;
     }
+  
     const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
-    
-    // Vérifier si le produit est déjà dans le panier
     const existingProductIndex = storedCart.findIndex(item => item.produitId === product._id);
-    
+  
     if (existingProductIndex !== -1) {
-      // Si le produit existe déjà, mettre à jour la quantité
       const updatedCart = [...storedCart];
       updatedCart[existingProductIndex].quantite += quantity;
   
-      // Assurez-vous que la quantité n'excède pas le stock disponible
       if (updatedCart[existingProductIndex].quantite > product.stock) {
         updatedCart[existingProductIndex].quantite = product.stock;
         toast.error('Quantité mise à jour au stock disponible.');
@@ -65,10 +59,8 @@ const Details = () => {
   
       localStorage.setItem('cart', JSON.stringify(updatedCart));
     } else {
-      // Si le produit n'existe pas encore, l'ajouter au panier
       const newCart = [...storedCart, { produitId: product._id, quantite: quantity }];
   
-      // Assurez-vous que la quantité n'excède pas le stock disponible
       if (quantity > product.stock) {
         newCart[newCart.length - 1].quantite = product.stock;
         toast.error('Quantité ajustée au stock disponible.');
@@ -77,9 +69,13 @@ const Details = () => {
       localStorage.setItem('cart', JSON.stringify(newCart));
     }
   
+    // Trigger a custom event to notify other components
+    window.dispatchEvent(new Event('cartUpdated'));
+  
     toast.success('Product added to cart!');
     setMessage('Product added to cart. Do you want to continue shopping or go to checkout?');
   };
+  
   
   
 
