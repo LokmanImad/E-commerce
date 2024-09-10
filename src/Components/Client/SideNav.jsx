@@ -15,9 +15,9 @@ const SideNav = ({ setActiveContent }) => {
             Dashboard
           </a>
           <div className="sb-sidenav-menu-heading">Interface</div>
-          <a className="nav-link collapsed" href="#!" onClick={() => setActiveContent('Produit')} data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+          <a className="nav-link collapsed" href="#!" onClick={() => setActiveContent('Commande')} data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
             <div className="sb-nav-link-icon"><i className="fas fa-columns"></i></div>
-            Produit
+            Commandes
             <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div>
           </a>
          

@@ -16,6 +16,7 @@ import AppClient from './Components/Client/AppClient'
 import Panier from './Components/Panier/Panier'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Projet from './Components/Projet/Projet'
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
         <Route path="/Profil" element={<AppClient/>}/>
         <Route path="/Panier" element={<Panier/>}/>
         <Route path="/Client" element={<AppClient/>}/>
+        <Route path="/Projet" element={<Projet/>}/>
         
         
       </Routes>

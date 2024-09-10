@@ -6,14 +6,27 @@ import { toast } from 'react-toastify'; // Importer toast
 
 const Panier = () => {
   const [cartItems, setCartItems] = useState([]);
+  const [showCheckoutForm, setShowCheckoutForm] = useState(false);
+  const [checkoutData, setCheckoutData] = useState({ 
+     nom: '',
+    email: '',
+    adresse: '',
+    telephone: '',
+    message: ''
+  });
 
   useEffect(() => {
     fetchCartItems();
-//     const storedCart = localStorage.getItem('cart');
-// console.log('Contenu du localStorage pour le panier :', storedCart);
-
-    
-    }, []);
+   
+    const userData = JSON.parse(localStorage.getItem('user')) || {};
+    setCheckoutData(prevData => ({
+      ...prevData,
+      nom: userData.name || '',
+      email: userData.email || '',
+      adresse: userData.adresse || '',
+      telephone: userData.telephone || ''
+    }));
+  }, []);
 
     const fetchCartItems = async () => {
       try {
@@ -79,6 +92,55 @@ const Panier = () => {
       localStorage.setItem('cart', JSON.stringify(updatedCart.map(item => ({ produitId: item._id, quantite: item.quantite }))));
     } catch (error) {
       console.error('Error updating item quantity:', error);
+    }
+  };
+
+  const handleCheckoutClick = () => {
+    setShowCheckoutForm(true);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setCheckoutData(prevData => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    
+    // Obtenez l'ID de l'utilisateur du localStorage
+    const userId = JSON.parse(localStorage.getItem('user')).id;
+    console.log("voila" ,cartItems);
+  
+    // Préparez les données pour la soumission
+    const orderData = {
+      produits: cartItems.map(item => ({
+        produit: item._id,
+        quantite: item.quantite
+      })),
+      total: calculateTotal() + 45, // Total + Shipping
+      etat: 'En attente', // Exemple d'état
+      userId: userId
+    };
+
+    console.log(orderData);
+  
+    try {
+      // Envoyer la demande de création de commande
+      const response = await axios.post('http://localhost:5000/api/commande/create', orderData);
+      console.log('Commande soumise avec succès :', response.data);
+
+      localStorage.removeItem('cart');
+      setCartItems([]);
+      window.dispatchEvent(new Event('cartUpdated'));
+      
+      toast.success('Commande soumise avec succès !');
+      setShowCheckoutForm(false); // Masquer le formulaire de commande après soumission
+    } catch (error) {
+      console.error('Erreur lors de la soumission de la commande :', error);
+      toast.error('Erreur lors de la soumission de la commande.');
     }
   };
 
@@ -173,7 +235,7 @@ const Panier = () => {
                 </table>
                 <div className="cart-buttons">
                   <a href="cart.html" className="boxed-btn">Update Cart</a>
-                  <a href="checkout.html" className="boxed-btn black">Check Out</a>
+                  <button onClick={handleCheckoutClick} className="boxed-btn black">Check Out</button>
                 </div>
               </div>
 
@@ -186,7 +248,153 @@ const Panier = () => {
                   </form>
                 </div>
               </div>
+              
             </div>
+            
+      {/* Modal for Checkout */}
+      {showCheckoutForm && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h2 className="modal-title">Checkout</h2>
+              <button type="button" className="close" onClick={() => setShowCheckoutForm(false)}>&times;</button>
+            </div>
+            <div className="modal-body">
+              <form onSubmit={handleFormSubmit}>
+                <div className="form-group">
+                  <label htmlFor="nom">Name</label>
+                  <input 
+                    type="text" 
+                    id="nom" 
+                    name="nom" 
+                    value={checkoutData.nom} 
+                    onChange={handleInputChange} 
+                    className="form-control" 
+                    required 
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="email">Email</label>
+                  <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    value={checkoutData.email} 
+                    onChange={handleInputChange} 
+                    className="form-control" 
+                    required 
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="adresse">Address</label>
+                  <input 
+                    type="text" 
+                    id="adresse" 
+                    name="adresse" 
+                    value={checkoutData.adresse} 
+                    onChange={handleInputChange} 
+                    className="form-control" 
+                    required 
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="telephone">Phone</label>
+                  <input 
+                    type="tel" 
+                    id="telephone" 
+                    name="telephone" 
+                    value={checkoutData.telephone} 
+                    onChange={handleInputChange} 
+                    className="form-control" 
+                    required 
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="message">Message</label>
+                  <textarea 
+                    id="message" 
+                    name="message" 
+                    value={checkoutData.message} 
+                    onChange={handleInputChange} 
+                    className="form-control" 
+                  />
+                </div>
+                <button type="submit" className="btn btn-primary">Submit</button>
+              </form>
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" onClick={() => setShowCheckoutForm(false)}>Close</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+
+      <style jsx>{`
+         .modal-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.5);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 1000;
+        }
+        .modal-content {
+          background: #fff;
+          border-radius: 8px;
+          box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+          max-width: 500px;
+          width: 100%;
+          padding: 20px;
+          position: relative;
+        }
+        .modal-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border-bottom: 1px solid #ddd;
+          padding-bottom: 10px;
+          margin-bottom: 10px;
+        }
+        .modal-title {
+          font-size: 1.5rem;
+          font-weight: bold;
+        }
+        .close {
+          background: transparent;
+          border: none;
+          font-size: 1.5rem;
+          cursor: pointer;
+        }
+        .modal-body {
+          padding: 10px 0;
+        }
+        .form-group {
+          margin-bottom: 15px;
+        }
+        .form-group label {
+          display: block;
+          margin-bottom: 5px;
+        }
+        .form-control {
+          width: 100%;
+          padding: 10px;
+          border-radius: 4px;
+          border: 1px solid #ccc;
+        }
+        .btn-primary {
+          background-color: #007bff;
+          border-color: #007bff;
+        }
+        .btn-secondary {
+          background-color: #6c757d;
+          border-color: #6c757d;
+        }
+      `}</style>
           </div>
         </div>
       </div>

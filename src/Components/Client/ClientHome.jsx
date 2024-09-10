@@ -1,4 +1,6 @@
 import React from "react";
+import Commande from "./Commande/Commande";
+
 
 
 
@@ -84,8 +86,8 @@ const ClientHome = ({ activeContent }) => {
             </div>
           </>
         )}
-        {/* {activeContent === "Produit" &&  <Produit/>}
-        {activeContent === "Projets" && <ProjetsPage/>}
+        {activeContent === "Commande" &&  <Commande/>}
+        {/* {activeContent === "Projets" && <ProjetsPage/>}
         {activeContent === "AddProduit" && <AddProduit/>}
         {activeContent === "Tasks" && <ShowLists />} */}
       </div>

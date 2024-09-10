@@ -2,6 +2,7 @@ import React from "react";
 import Produit from "./Produit/Produit";
 import ProjetsPage from "./Projets/ProjetsPage";
 import AddProduit from "./Produit/AddProduit";
+import Commande from "./Commande/Commande";
 
 
 
@@ -88,7 +89,7 @@ const AdminHome = ({ activeContent }) => {
         )}
         {activeContent === "Produit" &&  <Produit/>}
         {activeContent === "Projets" && <ProjetsPage/>}
-        {activeContent === "AddProduit" && <AddProduit/>}
+        {activeContent === "Commande" && <Commande/>}
         {activeContent === "Tasks" && <ShowLists />}
       </div>
     </div>
