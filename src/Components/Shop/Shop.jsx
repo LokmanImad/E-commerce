@@ -85,7 +85,7 @@ const Shop = () => {
               <div className="product-filters">
                 <ul>
                   <li className={activeFilter === '*' ? 'active' : ''} onClick={() => handleFilterChange('*')}>All</li>
-                  <li className={activeFilter === 'strawberry' ? 'active' : ''} onClick={() => handleFilterChange('strawberry')}>Strawberry</li>
+                  <li className={activeFilter === 'd' ? 'active' : ''} onClick={() => handleFilterChange('d')}>Strawberry</li>
                   <li className={activeFilter === 'berry' ? 'active' : ''} onClick={() => handleFilterChange('berry')}>Berry</li>
                   <li className={activeFilter === 'lemon' ? 'active' : ''} onClick={() => handleFilterChange('lemon')}>Lemon</li>
                 </ul>
@@ -99,16 +99,34 @@ const Shop = () => {
                 <div className="single-product-item">
                   <div className="product-image">
                     <a href="single-product.html">
-                    <Link to={`/produit/${product._id}`}>
-                  <img src={product.image} alt={product.nom} />
-                </Link>
+                      <Link to={`/produit/${product._id}`}>
+                        <div className="product-image-wrapper">
+                          {product.promotion > 0 && (
+                            <div className="promotion-badge">
+                              {(product.prix * ( product.promotion / 100)).toFixed(2)}% OFF
+                            </div>
+                          )}
+                          <img src={`/src/img/Produit/${product.images[0]}`} alt={product.nom} />
+                        </div>
+                      </Link>
                     </a>
                   </div>
                   <h3>{product.nom}</h3>
-                  <p className="product-price"><span>Per Unit</span> {product.prix}$</p>
+                  <p className="product-price">
+                    {product.promotion > 0 ? (
+                      <>
+                        <span className="original-price">{product.prix}$</span>
+                        <span className="discounted-price">
+                          {product.promotion }$
+                        </span>
+                      </>
+                    ) : (
+                      `${product.prix}$`
+                    )}
+                  </p>
                   <Link to={`/produit/${product._id}`} className="cart-btn">
-                <i className="fas fa-shopping-cart"></i> View Details
-              </Link>
+                    <i className="fas fa-shopping-cart"></i> View Details
+                  </Link>
                 </div>
               </div>
             ))}

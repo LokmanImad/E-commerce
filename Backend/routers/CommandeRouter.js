@@ -7,9 +7,7 @@ const router = express.Router();
 
 router.post('/create', async (req, res) => {
   try {
-    const { produits, total, etat } = req.body;
-
-    // Récupérer l'ID de l'utilisateur à partir du localStorage (côté frontend)
+    const { produits, total, etat, adresse, telephone } = req.body; // Récupérer l'adresse et le téléphone
     const userId = req.body.userId || req.userId;
 
     // Valider que l'utilisateur existe
@@ -18,24 +16,40 @@ router.post('/create', async (req, res) => {
       return res.status(404).json({ message: 'Utilisateur non trouvé' });
     }
 
-    // Vérifier que tous les produits existent
+    // Vérifier que tous les produits existent et que la quantité demandée est disponible
     const produitIds = produits.map(p => p.produit);
-    
     const produitsExistants = await Produit.find({ _id: { $in: produitIds } });
 
     if (produitsExistants.length !== produitIds.length) {
       return res.status(400).json({ message: 'Un ou plusieurs produits de la commande n\'existent pas.' });
     }
 
-    
+    // Vérifier la disponibilité des stocks pour chaque produit commandé
+    for (const produitCommande of produits) {
+      const produitExistant = produitsExistants.find(p => p._id.equals(produitCommande.produit));
+      if (produitExistant && produitCommande.quantite > produitExistant.stock) {
+        return res.status(400).json({ message: `Stock insuffisant pour le produit ${produitExistant.nom}.` });
+      }
+    }
 
-    // Créer la commande
+    // Mettre à jour le stock de chaque produit après vérification
+    for (const produitCommande of produits) {
+      const produitExistant = produitsExistants.find(p => p._id.equals(produitCommande.produit));
+      if (produitExistant) {
+        produitExistant.stock -= produitCommande.quantite;
+        await produitExistant.save();
+      }
+    }
+
+    // Créer la commande avec l'adresse et le téléphone
     const nouvelleCommande = new Commande({
       DateCommande: new Date(),
       Produits: produits,
       Etat: etat,
       user: userId,
-      Total: total
+      Total: total,
+      adresse: adresse, // Ajouter l'adresse
+      telephone: telephone // Ajouter le téléphone
     });
 
     const commandeSauvegardee = await nouvelleCommande.save();

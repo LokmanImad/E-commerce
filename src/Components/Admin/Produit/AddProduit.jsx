@@ -10,9 +10,8 @@ const AddProduit = () => {
     prix: '',
     stock: '',
     categories: '',
-    image: ''
   });
-
+  const [images, setImages] = useState([]);
   const { id } = useParams(); // Récupérer l'ID du produit à modifier
   const navigate = useNavigate();
 
@@ -21,7 +20,7 @@ const AddProduit = () => {
       // Si un ID est présent, on récupère les données du produit à modifier
       const fetchProduct = async () => {
         try {
-          const response = await axios.get(`http://localhost:5000/api/produit/productDetails/${id}`);
+          const response = await axios.get(`http://localhost:5000/api/produit/getproduit/${id}`);
           const productData = response.data;
           setFormData({
             nom: productData.nom || '',
@@ -29,8 +28,8 @@ const AddProduit = () => {
             prix: productData.prix || '',
             stock: productData.stock || '',
             categories: productData.categories || '',
-            image: productData.image || ''
           });
+          // On ne charge pas les images ici pour éviter de les afficher dans le formulaire
         } catch (error) {
           console.error("Erreur lors de la récupération du produit :", error);
         }
@@ -43,15 +42,39 @@ const AddProduit = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleFileChange = (e) => {
+    setImages(Array.from(e.target.files)); // Stocke plusieurs fichiers
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const formDataToSend = new FormData();
+    
+    // Ajouter les autres champs de formulaire
+    for (const key in formData) {
+      formDataToSend.append(key, formData[key]);
+    }
+
+    // Ajouter les images
+    images.forEach((image) => {
+      formDataToSend.append('images', image); // Utiliser 'images' pour correspondre à la clé du tableau dans le backend
+    });
+
     try {
       if (id) {
         // Si un ID est présent, on est en mode modification
-        await axios.put(`http://localhost:5000/api/produit/modifier/${id}`, formData);
+        await axios.put(`http://localhost:5000/api/produit/updateproduit/${id}`, formDataToSend, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
       } else {
         // Sinon, on crée un nouveau produit
-        await axios.post("http://localhost:5000/api/produit/ajouter", formData);
+        await axios.post("http://localhost:5000/api/produit/ajouter", formDataToSend, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
       }
       navigate('/produit'); // Redirection vers la liste des produits
     } catch (error) {
@@ -123,13 +146,13 @@ const AddProduit = () => {
           </div>
 
           <div className="mb-3">
-            <label className="form-label">Image (URL)</label>
+            <label className="form-label">Images</label>
             <input 
-              type="text" 
+              type="file" 
               className="form-control" 
-              name="image" 
-              value={formData.image} 
-              onChange={handleChange} 
+              name="images" 
+              onChange={handleFileChange} 
+              multiple // Permet la sélection de plusieurs fichiers
             />
           </div>
 

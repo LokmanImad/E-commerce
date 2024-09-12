@@ -4,29 +4,26 @@ import "./styles.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { useNavigate } from "react-router-dom";
 
 
 
 const NavBarClient = () => {
-//   const navigate = useNavigate();
+  const navigate = useNavigate();  // Hook pour la navigation
 
-//   const handleLogout = () => {
-//     const user_data = localStorage.getItem("user_data");
-//     const token = localStorage.getItem("token");
-//     if (user_data || token) {
-//       localStorage.removeItem("token");
-//       localStorage.removeItem("user_data");
+  const handleLogout = () => {
+    // Suppression des informations de l'utilisateur dans localStorage
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
 
-//       navigate("/");
-//     } else {
-//       console.log("localStotage vide");
-//     }
-//   };
+    // Redirection vers la page d'accueil ou la page de connexion
+    navigate("/login");  // Remplacez "/login" par la route de votre choix
+  };
 
   return (
     <nav className="sb-topnav navbar navbar-expand navbar-dark bg-dark">
       <a className="navbar-brand ps-3" href="">
-        InternLink
+      E-Rotman
       </a>
       <button
         className="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
@@ -83,7 +80,7 @@ const NavBarClient = () => {
               <hr className="dropdown-divider" />
             </li>
             <li>
-              <button className="dropdown-item">
+              <button onClick={handleLogout} className="dropdown-item">
                 Logout
               </button>
             </li>

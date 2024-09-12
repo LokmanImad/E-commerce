@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Produit from "./Produit/Produit";
 import ProjetsPage from "./Projets/ProjetsPage";
 import AddProduit from "./Produit/AddProduit";
 import Commande from "./Commande/Commande";
+import Coupon from "./Coupon/Coupon";
+import { useNavigate } from "react-router-dom";
 
 
 
 
 const AdminHome = ({ activeContent }) => {
-//   const navigate = useNavigate();
+  const navigate = useNavigate();
+
+
+
 
 //   const [UserConect, setUserConect] = useState(null);
 
@@ -21,14 +26,23 @@ const AdminHome = ({ activeContent }) => {
 //     }
 //   };
 
-//   useEffect((e) => {
-//     getUserConnected();
-//   }, []);
+
+  useEffect(() => {
+    const userData = localStorage.getItem('user').role;
+    const user = localStorage.getItem('user');
+    
+
+if (!(userData=="admin") && !user) {
+  navigate('/login'); // Redirigez vers la page de connexion si l'utilisateur n'est pas connecté
+  return;
+}
+;
+  }, []);
 
   return (
     <div className="container-fluid px-4">
       {/* <h2>{UserConect ? `Hello ${UserConect.name}` : "Loading..."}</h2> */}
-      <h1 className="mt-4">{activeContent}</h1>
+      {/* <h1 className="mt-4">{activeContent}</h1> */}
 
       <div className="row">
         {activeContent === "AdminHome" && (
@@ -90,7 +104,7 @@ const AdminHome = ({ activeContent }) => {
         {activeContent === "Produit" &&  <Produit/>}
         {activeContent === "Projets" && <ProjetsPage/>}
         {activeContent === "Commande" && <Commande/>}
-        {activeContent === "Tasks" && <ShowLists />}
+        {activeContent === "Coupon" && <Coupon/>}
       </div>
     </div>
   );

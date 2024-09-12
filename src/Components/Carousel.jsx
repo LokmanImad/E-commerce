@@ -44,19 +44,19 @@ const Carousel= () => {
       <div className="container">
         <Slider {...settings} className="logo-carousel-inner">
           <div className="single-logo-item">
-            <img src="assets/img/company-logos/1.png" alt="Company Logo 1" />
+            <img src="src/img/logo/liper.png" alt="Company Logo 1" />
           </div>
           <div className="single-logo-item">
-            <img src="assets/img/company-logos/2.png" alt="Company Logo 2" />
+            <img src="src/img/logo/nexans.png" alt="Company Logo 2" />
           </div>
           <div className="single-logo-item">
-            <img src="assets/img/company-logos/3.png" alt="Company Logo 3" />
+            <img src="src/img/logo/ingelec.png" alt="Company Logo 3" />
           </div>
           <div className="single-logo-item">
-            <img src="assets/img/company-logos/4.png" alt="Company Logo 4" />
+            <img src="src/img/logo/simon.png" alt="Company Logo 4" />
           </div>
           <div className="single-logo-item">
-            <img src="assets/img/company-logos/5.png" alt="Company Logo 5" />
+            <img src="src/img/logo/lap.png" alt="Company Logo 5" />
           </div>
         </Slider>
       </div>

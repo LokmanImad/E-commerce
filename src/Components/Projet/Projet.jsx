@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../Shop/main.css'; // Assure-toi d'inclure ton fichier CSS
+import { Link } from 'react-router-dom';
 import Menu from '../Menu';
 
 const BreadcrumbSection = () => (
@@ -21,18 +21,18 @@ const BreadcrumbSection = () => (
 const SingleProject = ({ imageUrl, title, date, excerpt }) => (
   <div className="col-lg-4 col-md-6">
     <div className="single-latest-news">
-      <a href="#">
+      <Link to="#">
         <div className="latest-news-bg">
           <img src={imageUrl} alt={title} className="img-thumbnail" width="100%" />
         </div>
-      </a>
+      </Link>
       <div className="news-text-box">
-        <h3><a href="#">{title}</a></h3>
+        <h3><Link to="#">{title}</Link></h3>
         <p className="blog-meta">
           <span className="date"><i className="fas fa-calendar"></i> {date}</span>
         </p>
         <p className="excerpt">{excerpt}</p>
-        <a href="#" className="read-more-btn">read more <i className="fas fa-angle-right"></i></a>
+        <Link to="#" className="read-more-btn">read more <i className="fas fa-angle-right"></i></Link>
       </div>
     </div>
   </div>
@@ -40,6 +40,8 @@ const SingleProject = ({ imageUrl, title, date, excerpt }) => (
 
 const ProjectsPage = () => {
   const [projects, setProjects] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [projectsPerPage] = useState(6);  // Adjust the number per page as needed
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -54,34 +56,67 @@ const ProjectsPage = () => {
     fetchProjects();
   }, []);
 
+  // Get current projects based on pagination
+  const indexOfLastProject = currentPage * projectsPerPage;
+  const indexOfFirstProject = indexOfLastProject - projectsPerPage;
+  const currentProjects = projects.slice(indexOfFirstProject, indexOfLastProject);
+
+  // Pagination Logic
+  const totalPages = Math.ceil(projects.length / projectsPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <div className="latest-news mt-150 mb-150">
       <div className="container">
         <div className="row">
-          {projects.map((project) => (
+          {currentProjects.map((project) => (
             <SingleProject
               key={project._id}
-              imageUrl={`http://localhost:5000/uploads/${project.images[0]}`}  // Utilise la première image pour l'aperçu
+              imageUrl={`/src/img/${project.images[0]}`}
               title={project.title}
               date={new Date(project.date).toISOString().split('T')[0]}
-              excerpt={project.description} // Utilise la description comme extrait
+              excerpt={project.description}
             />
           ))}
         </div>
+        {/* Pagination */}
         <div className="row">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-12 text-center">
-                <div className="pagination-wrap">
-                  <ul>
-                    <li><a href="#">Prev</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a className="active" href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">Next</a></li>
-                  </ul>
-                </div>
-              </div>
+          <div className="col-lg-12 text-center">
+            <div className="pagination-wrap">
+              <ul>
+                <li>
+                  <a
+                    href="#!"
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                  >
+                    Prev
+                  </a>
+                </li>
+                {[...Array(totalPages).keys()].map(number => (
+                  <li key={number + 1}>
+                    <a
+                      href="#!"
+                      onClick={() => handlePageChange(number + 1)}
+                      className={currentPage === number + 1 ? 'active' : ''}
+                    >
+                      {number + 1}
+                    </a>
+                  </li>
+                ))}
+                <li>
+                  <a
+                    href="#!"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                  >
+                    Next
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -92,7 +127,7 @@ const ProjectsPage = () => {
 
 const Projet = () => (
   <>
-    <Menu/>
+    <Menu />
     <BreadcrumbSection />
     <ProjectsPage />
   </>

@@ -87,25 +87,23 @@ const AdvertisementSection = () => {
         <div className="row">
           <div className="col-lg-6 col-md-12">
             <div className="abt-bg">
-              <a
-                href="https://www.youtube.com/watch?v=DBLlFWYcIGQ"
-                className="video-play-btn popup-youtube"
-              >
-                <i className="fas fa-play"></i>
-              </a>
+            <img src='src/img/logo/logo2.jpeg' />
             </div>
           </div>
           <div className="col-lg-6 col-md-12">
             <div className="abt-text">
-              <p className="top-sub">Since Year 1999</p>
+              <p className="top-sub">Since Year 2022</p>
               <h2>
-                We are <span className="orange-text">Fruitkha</span>
+                We are <span className="orange-text">E-Rotman</span>
               </h2>
               <p>
-                Etiam vulputate ut augue vel sodales. In sollicitudin neque et massa porttitor vestibulum ac vel nisi. Vestibulum placerat eget dolor sit amet posuere. In ut dolor aliquet, aliquet sapien sed, interdum velit. Nam eu molestie lorem.
+                
+
+
+<strong>E-Rotman Import Export,</strong> depuis 2022, se consacre à l'import et à l'export de matériels électriques. Nous offrons une vaste gamme de produits de qualité, incluant câbles, interrupteurs et dispositifs de sécurité, adaptés aux besoins diversifiés de nos clients.
               </p>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente facilis illo repellat veritatis minus, et labore minima mollitia qui ducimus.
+              Notre engagement est de fournir des solutions fiables et économiques tout en assurant un service client impeccable. Grâce à notre réseau international, nous garantissons des produits conformes aux standards les plus élevés, vous permettant de réaliser vos projets électriques en toute confiance.
               </p>
               <a href="about.html" className="boxed-btn mt-4">
                 know more

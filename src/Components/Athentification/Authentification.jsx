@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import axios from 'axios'; // Si vous utilisez axios pour les requêtes HTTP
+import axios from 'axios';
 import './Authentification.css';
-import { useNavigate } from 'react-router-dom'; // Pour rediriger après la connexion
+import { useNavigate } from 'react-router-dom';
 
 const Authentification = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -40,16 +40,24 @@ const Authentification = () => {
       const url = isLogin ? '/login' : '/register';
       console.log('Envoi des données à :', `http://localhost:5000/api/users${url}`);
       console.log('FormData:', formData);
-  
+
       const response = await axios.post(`http://localhost:5000/api/users${url}`, formData);
       console.log('Réponse de l\'API:', response);
-  
+
       if (response.status === 201 || response.status === 200) {
         if (isLogin) {
           const { token, user } = response.data;
           localStorage.setItem('token', token);
           localStorage.setItem('user', JSON.stringify(user));
-          navigate('/');
+
+          // Redirection en fonction du rôle de l'utilisateur
+          if (user.role === 'admin') {
+            navigate('/admin');
+          } else if (user.role === 'client') {
+            navigate('/client');
+          } else {
+            navigate('/'); // Redirection par défaut si le rôle est inconnu
+          }
         } else {
           setMessage('Inscription réussie, veuillez vous connecter.');
           setIsLogin(true);

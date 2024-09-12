@@ -178,8 +178,8 @@ const Commande = () => {
                     <div className="mt-3">
                       <h5>Informations Utilisateur</h5>
                       <p><strong>Nom:</strong> {order.user.name}</p>
-                      <p><strong>Téléphone:</strong> {order.user.phone}</p>
-                      <p><strong>Adresse:</strong> {order.user.address}</p>
+                      <p><strong>Téléphone:</strong> {order.telephone}</p>
+                      <p><strong>Adresse:</strong> {order.adresse}</p>
                     </div>
                   </Collapse>
                 </td>
@@ -199,8 +199,8 @@ const Commande = () => {
             <div>
               <h4>Informations Utilisateur</h4>
               <p><strong>Nom:</strong> {printData.user.name}</p>
-              <p><strong>Téléphone:</strong> {printData.user.phone}</p>
-              <p><strong>Adresse:</strong> {printData.user.address}</p>
+              <p><strong>Téléphone:</strong> {printData.telephone}</p>
+              <p><strong>Adresse:</strong> {printData.adresse}</p>
               <h4 className="mt-4">Produits</h4>
               <Table striped bordered>
                 <thead>

@@ -34,9 +34,9 @@ const SideNav = ({ setActiveContent }) => {
           </a>
          
           <div className="sb-sidenav-menu-heading">Addons</div>
-          <a className="nav-link" href="#!" onClick={() => setActiveContent('Tasks')}>
+          <a className="nav-link" href="#!" onClick={() => setActiveContent('Coupon')}>
             <div className="sb-nav-link-icon"><i className="fas fa-chart-area"></i></div>
-            Suivie
+            Coupon
           </a>
          
         </div>

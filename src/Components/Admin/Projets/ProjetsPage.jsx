@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Modal, Button } from 'react-bootstrap';
 
 // Composant de formulaire de projet
 const ProjectForm = ({ project, onSubmit, onCancel }) => {
@@ -35,11 +36,8 @@ const ProjectForm = ({ project, onSubmit, onCancel }) => {
     onSubmit({ ...formData, images: data });
   };
 
-  
-
   return (
     <div className="mb-4">
-      
       <div className="card">
         <div className="card-header">
           <h5>{project ? 'Edit Project' : 'Add New Project'}</h5>
@@ -106,9 +104,10 @@ const ProjetsPage = () => {
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
   const [showForm, setShowForm] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [imagesToShow, setImagesToShow] = useState([]);
 
   useEffect(() => {
-    
     const fetchProjects = async () => {
       try {
         const response = await axios.get('http://localhost:5000/api/projets/getAllprojet');
@@ -117,8 +116,6 @@ const ProjetsPage = () => {
         console.error('Erreur lors de la récupération des projets:', error);
       }
     };
-   
-
     fetchProjects();
   }, []);
 
@@ -146,6 +143,11 @@ const ProjetsPage = () => {
     }
   };
 
+  const handleShowImages = (images) => {
+    setImagesToShow(images);
+    setShowModal(true);
+  };
+
   const handleSubmit = async (formData) => {
     try {
       const data = formData.images;
@@ -166,7 +168,9 @@ const ProjetsPage = () => {
   };
 
   return (
+    
     <div className="container mt-5">
+      <h1>Projets </h1>
       <button className="btn btn-primary mb-4" onClick={handleAddProject}>Add New Project</button>
 
       {showForm && (
@@ -195,9 +199,7 @@ const ProjetsPage = () => {
                 <td>{project.description}</td>
                 <td>{new Date(project.date).toISOString().split('T')[0]}</td>
                 <td>
-                  {project.images && project.images.map((img, index) => (
-                    <img key={index}  src={`http://localhost:5000/uploads/${img}`} alt={`Projesct ${img}`} className="img-thumbnail" width="10" />
-                  ))}
+                  <button className="btn btn-info btn-sm" onClick={() => handleShowImages(project.images)}>View Images</button>
                 </td>
                 <td>
                   <button className="btn btn-warning btn-sm me-2" onClick={() => handleEditProject(project._id)}>Edit</button>
@@ -208,6 +210,23 @@ const ProjetsPage = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Modal to show images */}
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Project Images</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {imagesToShow.map((img, index) => (
+            <img key={index} src={`/src/img/${img}`} alt={`Project ${img}`} className="img-thumbnail mb-2" width="100%" />
+          ))}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

@@ -3,28 +3,48 @@ import './main.css';
 import Menu from '../Menu';
 import axios from 'axios';
 import { toast } from 'react-toastify'; // Importer toast
+import { useNavigate } from 'react-router-dom';
 
 const Panier = () => {
   const [cartItems, setCartItems] = useState([]);
   const [showCheckoutForm, setShowCheckoutForm] = useState(false);
+  const [userphone , setuserphone] = useState('');
+  const [useradresse , setuseradresse] = useState('');
   const [checkoutData, setCheckoutData] = useState({ 
      nom: '',
     email: '',
-    adresse: '',
+    address: '',
     telephone: '',
     message: ''
   });
+
+  const navigate = useNavigate();
+
+  const [couponCode, setCouponCode] = useState('');
+const [discount, setDiscount] = useState(0);
 
   useEffect(() => {
     fetchCartItems();
    
     const userData = JSON.parse(localStorage.getItem('user')) || {};
+
+    if (!userData.id) {
+      navigate('/login'); // Redirigez vers la page de connexion si l'utilisateur n'est pas connecté
+      return;
+    }
+    
+    const userphone = JSON.parse(localStorage.getItem('user')).phone;
+    setuserphone(userphone);
+    const useradress = JSON.parse(localStorage.getItem('user')).address;
+    setuseradresse(useradress);
+    
+
     setCheckoutData(prevData => ({
       ...prevData,
       nom: userData.name || '',
       email: userData.email || '',
-      adresse: userData.adresse || '',
-      telephone: userData.telephone || ''
+      address: userData.address || '',
+      phone: userData.phone || ''
     }));
   }, []);
 
@@ -63,7 +83,29 @@ const Panier = () => {
     };
     
     
+// Fonction pour gérer l'application du coupon
+const handleApplyCoupon = async (e) => {
+  e.preventDefault();
+  try {
+    const response = await axios.post('http://localhost:5000/api/coupon/apply', { code: couponCode });
 
+    if (response.data.valid) {
+      setDiscount(response.data.discount); // Appliquez la réduction si le coupon est valide
+      toast.success('Coupon appliqué avec succès !');
+    } else {
+      toast.error('Coupon invalide.');
+    }
+  } catch (error) {
+    console.error('Erreur lors de l\'application du coupon :', error);
+    toast.error('Erreur lors de l\'application du coupon.');
+  }
+};
+
+const calculateTotalWithDiscount = () => {
+  const subtotal = calculateSubtotal();
+  const shipping = 45; // Coût fixe de livraison
+  return (subtotal + shipping) * (1 - discount / 100);
+};
 
   const calculateTotal = () => {
     return cartItems.reduce((total, item) => total + item.prix * item.quantite, 0);
@@ -78,6 +120,7 @@ const Panier = () => {
       const updatedCart = cartItems.filter(item => item._id !== itemId);
       setCartItems(updatedCart);
       localStorage.setItem('cart', JSON.stringify(updatedCart.map(item => ({ produitId: item._id, quantite: item.quantite }))));
+      window.dispatchEvent(new Event('cartUpdated'));
     } catch (error) {
       console.error('Error removing item from cart:', error);
     }
@@ -109,35 +152,31 @@ const Panier = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    
-    // Obtenez l'ID de l'utilisateur du localStorage
-    const userId = JSON.parse(localStorage.getItem('user')).id;
-    console.log("voila" ,cartItems);
   
-    // Préparez les données pour la soumission
+    const userId = JSON.parse(localStorage.getItem('user')).id;
+    const userphone = JSON.parse(localStorage.getItem('user')).phone;
+    setuserphone(userphone);
+    const useradress = JSON.parse(localStorage.getItem('user')).address;
+  
     const orderData = {
       produits: cartItems.map(item => ({
         produit: item._id,
         quantite: item.quantite
       })),
-      total: calculateTotal() + 45, // Total + Shipping
-      etat: 'En attente', // Exemple d'état
-      userId: userId
+      total: calculateTotalWithDiscount(),
+      etat: 'En attente',
+      userId: userId,
+      adresse: checkoutData.address || useradress, // Inclure l'adresse
+      telephone: checkoutData.telephone ||userphone // Inclure le téléphone
     };
-
-    console.log(orderData);
   
     try {
-      // Envoyer la demande de création de commande
       const response = await axios.post('http://localhost:5000/api/commande/create', orderData);
-      console.log('Commande soumise avec succès :', response.data);
-
       localStorage.removeItem('cart');
       setCartItems([]);
       window.dispatchEvent(new Event('cartUpdated'));
-      
       toast.success('Commande soumise avec succès !');
-      setShowCheckoutForm(false); // Masquer le formulaire de commande après soumission
+      setShowCheckoutForm(false);
     } catch (error) {
       console.error('Erreur lors de la soumission de la commande :', error);
       toast.error('Erreur lors de la soumission de la commande.');
@@ -228,8 +267,12 @@ const Panier = () => {
                       <td>$45</td>
                     </tr>
                     <tr className="total-data">
+                      <td><strong>Discount: </strong></td>
+                      <td>${discount}</td>
+                    </tr>
+                    <tr className="total-data">
                       <td><strong>Total: </strong></td>
-                      <td>${calculateTotal() + 45}</td>
+                      <td>${calculateTotalWithDiscount()}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -240,14 +283,21 @@ const Panier = () => {
               </div>
 
               <div className="coupon-section">
-                <h3>Apply Coupon</h3>
-                <div className="coupon-form-wrap">
-                  <form action="index.html">
-                    <p><input type="text" placeholder="Coupon" /></p>
-                    <p><input type="submit" value="Apply" /></p>
-                  </form>
-                </div>
-              </div>
+    <h3>Apply Coupon</h3>
+    <div className="coupon-form-wrap">
+      <form onSubmit={handleApplyCoupon}>
+        <p>
+          <input 
+            type="text" 
+            placeholder="Coupon" 
+            value={couponCode} 
+            onChange={(e) => setCouponCode(e.target.value)} 
+          />
+        </p>
+        <p><input type="submit" value="Apply" /></p>
+      </form>
+    </div>
+  </div>
               
             </div>
             
@@ -286,12 +336,12 @@ const Panier = () => {
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="adresse">Address</label>
+                  <label htmlFor="address">Address</label>
                   <input 
                     type="text" 
                     id="adresse" 
                     name="adresse" 
-                    value={checkoutData.adresse} 
+                    value={checkoutData.address || useradresse } 
                     onChange={handleInputChange} 
                     className="form-control" 
                     required 
@@ -303,7 +353,7 @@ const Panier = () => {
                     type="tel" 
                     id="telephone" 
                     name="telephone" 
-                    value={checkoutData.telephone} 
+                    value={  checkoutData.phone || userphone} 
                     onChange={handleInputChange} 
                     className="form-control" 
                     required 

@@ -1,10 +1,12 @@
 
 import React from 'react';
 import './main.css'
+import Menu from '../Menu';
 
 const Contact = () => {
   return (
     <div>
+      <Menu/>
       {/* Breadcrumb Section */}
       <div className="breadcrumb-section breadcrumb-bg">
         <div className="container">

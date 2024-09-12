@@ -17,6 +17,8 @@ import Panier from './Components/Panier/Panier'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Projet from './Components/Projet/Projet'
+import Contact from './Components/Contact/Contact'
+import ProjetDetails from './Components/Projet/ProjetDetails'
 
 
 function App() {
@@ -38,6 +40,8 @@ function App() {
         <Route path="/Panier" element={<Panier/>}/>
         <Route path="/Client" element={<AppClient/>}/>
         <Route path="/Projet" element={<Projet/>}/>
+        <Route path="/contacte" element={<Contact/>}/>
+        <Route path="/projetdetails/:id" element={<ProjetDetails/>}/>
         
         
       </Routes>

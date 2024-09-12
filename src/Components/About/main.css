@@ -1555,7 +1555,7 @@ div.owl-controls, .owl-controls div {
 # List Styles
 
 ----------------------------------------------------------------------------- */
-.list-section {
+/* .list-section {
   background-color: #f5f5f5;
   padding-top: 80px;
   padding-bottom: 80px;
@@ -1575,7 +1575,7 @@ div.owl-controls, .owl-controls div {
   border-radius: 10px;
   display: flex;
   align-items: center;
-  width: 100%; /* Chaque box occupe environ un tiers de la largeur */
+  width: 100%; 
 }
 
 
@@ -1604,6 +1604,121 @@ div.owl-controls, .owl-controls div {
   line-height: 60px;
   border: 2px #F28123 dotted;
   border-radius: 999px;
+} */
+
+
+
+
+
+
+/* Styles pour la nouvelle section */
+/* Styles pour la nouvelle section */
+.feature-background {
+  background-color: #f5f5f5;
+  padding: 60px 0;
+}
+
+.highlighted-text {
+  color: #333;
+}
+
+.highlighted-text .highlighted-orange {
+  color: #F28123;
+}
+
+.info-box {
+  display: flex; /* Assure que l'icône et le texte sont côte à côte */
+  align-items: center; /* Aligne l'icône et le texte verticalement */
+  margin-bottom: 30px;
+}
+
+.icon-box {
+  font-size: 24px;
+  color: #F28123;
+  width: 65px;
+  height: 65px;
+  text-align: center;
+  line-height: 65px; /* Assure que l'icône est bien centrée */
+  border: 2px #F28123 dotted;
+  border-radius: 999px;
+  flex-shrink: 0; /* L'icône ne rétrécit pas */
+}
+
+.text-content {
+  margin-left: 15px;
+}
+
+.text-content h3 {
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.text-content p {
+  opacity: 0.75;
+  margin-bottom: 0;
+}
+
+/* Styles pour l'image à droite */
+.image-box {
+  text-align: center;
+}
+
+.image-box img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  max-height: 500px;
+}
+
+/* sous about */
+/* Bloc de description de l'entreprise */
+.company-description-section {
+  padding: 80px 0;
+  background-color: #f9f9f9;
+}
+
+.company-info h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.company-info .highlighted-orange {
+  color: #F28123;
+}
+
+.company-text {
+  font-size: 18px;
+  line-height: 1.8;
+  margin-bottom: 30px;
+  color: #555;
+}
+
+.qualities-list {
+  margin-top: 30px;
+}
+
+.quality-box {
+  display: flex;
+  align-items: center;
+}
+
+.quality-box i {
+  font-size: 24px;
+  color: #F28123;
+  margin-right: 15px;
+}
+
+.quality-box p {
+  font-size: 16px;
+  color: #333;
+}
+
+/* Image de l'entreprise */
+.company-image-box img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
 }
 
 

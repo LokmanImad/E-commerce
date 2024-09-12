@@ -7,6 +7,9 @@ import produitRoutes from './routers/ProduitRouter.js';
 import panierRoutes from './routers/PanierRouter.js';
 import commandeRouter from './routers/CommandeRouter.js';
 import projetRouter from './routers/ProjetRouter.js';
+import couponRouter from './routers/CouponRouter.js';
+
+
 
 
 
@@ -23,7 +26,8 @@ app.use('/api/produit', produitRoutes);
 app.use('/api/panier', panierRoutes);
 app.use('/api/commande' , commandeRouter);
 app.use('/api/projets', projetRouter);
-app.use('/uploads', express.static('C:/Users/ACHRAF/Desktop/Nouveau_dossier(6)'));
+app.use('/api/coupon', couponRouter);
+
 
 
 

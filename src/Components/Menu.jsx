@@ -39,8 +39,11 @@ const Menu= () => {
 
   const handleLogout = () => {
     localStorage.removeItem('token'); // Remove token from localStorage
+    localStorage.removeItem('user');
     setIsLoggedIn(false);
     localStorage.removeItem('cart');
+    window.dispatchEvent(new Event('cartUpdated'));
+    
     // Redirect to login page
   };
 
@@ -66,32 +69,26 @@ const Menu= () => {
                 <ul>
                   <li className="current-list-item">
                     <Link to={'/'}>Home</Link>
-                    <ul className="sub-menu">
-                      <li><a href="index.html">Static Home</a></li>
-                      <li><a href="index_2.html">Slider Home</a></li>
-                    </ul>
+                   
                   </li>
                   <li><Link to={"/About"}>About</Link></li>
-                  <li>
+                  {/* <li>
                     <a href="#">Pages</a>
                     <ul className="sub-menu">
                       <li><a href="404.html">404 page</a></li>
                       <li><a href="about.html">About</a></li>
                       <li><a href="cart.html">Cart</a></li>
                       <li><a href="checkout.html">Check Out</a></li>
-                      <li><a href="contact.html">Contact</a></li>
+                      <li><Link to={"/Contacte"}>Contact</Link></li>
                       <li><a href="news.html">News</a></li>
                       <li><a href="shop.html">Shop</a></li>
                     </ul>
-                  </li>
+                  </li> */}
                   <li>
-                    <a href="news.html">News</a>
-                    <ul className="sub-menu">
-                      <li><a href="news.html">News</a></li>
-                      <li><a href="single-news.html">Single News</a></li>
-                    </ul>
+                    <Link to={"/projet"}>Projets</Link>
+                    
                   </li>
-                  <li><a href="contact.html">Contact</a></li>
+                  <li><Link to={"/Contacte"}>Contact</Link></li>
                   <li>
                     <Link to={'/Produit'}>Shop</Link>
                     <ul className="sub-menu">

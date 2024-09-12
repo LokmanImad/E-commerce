@@ -1595,11 +1595,13 @@ div.owl-controls, .owl-controls div {
   border-radius: 10px;
   display: flex;
   align-items: center;
-  width: 30%; /* Chaque box occupe environ un tiers de la largeur */
+  width: 100%; 
 }
+
 
 .list-box .content h3 {
   display: block;
+ 
   line-height: 22px;
   font-size: 18px;
   margin-bottom: 4px;
@@ -1607,6 +1609,7 @@ div.owl-controls, .owl-controls div {
 
 .list-box .content p {
   margin-bottom: 0px;
+ 
   opacity: 0.75;
 }
 
@@ -1622,6 +1625,7 @@ div.owl-controls, .owl-controls div {
   border: 2px #F28123 dotted;
   border-radius: 999px;
 }
+
 
 
 /* -----------------------------------------------------------------------------
@@ -1654,14 +1658,74 @@ div.owl-controls, .owl-controls div {
 }
 
 .latest-news-bg {
-  height: 200px;
-  background-size: cover;
-  background-position: center;
-  border-radius: 10px;
-  background-color: #ddd;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
+  width: 100%;
+  height: 250px; /* Ajuste la hauteur en fonction de tes besoins */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+.latest-news-bg img {
+  width: 100%;
+  height: auto;
+  object-fit: cover; /* Garde l'image contenue dans le cadre sans déformation */
+}
+
+/* .img-thumbnail {
+  border: none; 
+  max-width: 100%;
+  height: 100%; 
+} */
+
+/* qdqwdqwqwf */
+/* Style pour l'image principale */
+.main-image-container {
+  width: 100%;
+  max-width: 600px; /* Largeur maximale de l'image principale */
+  margin-bottom: 20px; /* Espacement en bas de l'image principale */
+}
+
+.main-image {
+  width: 100%;
+  height: 400px; /* Hauteur fixe pour l'image principale */
+  object-fit: cover; /* Couvre l'espace sans déformation */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+/* Style pour les vignettes */
+.thumbnail-gallery {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 5px; /* Espacement entre les vignettes */
+  overflow-x: auto;
+  margin-top: 0; /* Supprimer l'espacement au-dessus des vignettes */
+  width: 100%;
+  max-width: 600px; /* Largeur maximale pour la galerie de vignettes */
+}
+
+.thumbnail {
+  flex: 0 0 auto;
+}
+
+.thumbnail img {
+  width: 80px; /* Largeur fixe pour les vignettes */
+  height: 80px; /* Hauteur fixe pour les vignettes */
+  object-fit: cover; /* Couvre l'espace sans déformation */
+  cursor: pointer;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+
+
+/* asdadqwd */
+
+
+
+
+
 
 .single-latest-news h3 {
   font-size: 20px;
@@ -2446,14 +2510,16 @@ ul.social-link-team li a {
 }
 
 .product-image {
-  padding: 30px;
+  padding: 10px;
   padding-bottom: 0;
 }
 
 .product-image img {
-  width: 90%;
+  width: 100%;
+  height: 120px;
   border-radius: 5px;
   margin-bottom: 20px;
+  object-fit: cover;
 }
 
 .single-product-item h3 {
@@ -2795,3 +2861,46 @@ table.order-details tbody td {
   vertical-align: middle;
   width: 100%;
 }
+
+/* product promotion */
+.product-price {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: #888;
+  margin-bottom: 5px;
+}
+
+.discounted-price {
+  font-weight: bold;
+  color: #e74c3c;
+  margin-bottom: 5px;
+}
+
+.promotion-label {
+  color: #2ecc71;
+  font-weight: bold;
+}
+
+.product-image-wrapper {
+  position: relative;
+}
+
+.promotion-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #e74c3c;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 0 0 5px 0;
+  font-weight: bold;
+  transform: rotate(-45deg);
+  transform-origin: 0 0;
+  white-space: nowrap;
+}
+

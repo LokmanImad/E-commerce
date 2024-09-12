@@ -9,7 +9,9 @@ const commandeSchema = new Schema({
   }],
   Etat: { type: String, required: true },
   user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-  Total: { type: Number, required: true }
+  Total: { type: Number, required: true },
+  adresse: { type: String, required: true }, // Nouveau champ pour l'adresse
+  telephone: { type: String, required: true }
 }, {
   timestamps: true // Ajoute createdAt et updatedAt automatiquement
 });

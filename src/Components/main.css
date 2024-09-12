@@ -876,15 +876,35 @@ a.mobile-show {
 
 
 /* ------ */
-.single-logo-item img {
+/* .single-logo-item img {
   max-width: 180px;
   margin: 0 auto;
-}
+} */
 
 .logo-carousel-section {
-  background-color: #f5f5f5;
-  padding: 50px 0;
+  text-align: center;
 }
+
+.logo-carousel-inner .single-logo-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 120px; /* Taille fixe pour uniformiser la hauteur des conteneurs */
+  padding: 0; /* Supprime tout espace autour des logos */
+}
+
+.logo-carousel-inner .single-logo-item img {
+  max-width: 100%; /* Ajuste à 100% de la largeur du conteneur */
+  max-height: 100px; /* Taille maximale des images */
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+
+
+
+
 
 .footer-area {
   background-color: #051922;
@@ -1598,11 +1618,13 @@ div.owl-controls, .owl-controls div {
   border-radius: 10px;
   display: flex;
   align-items: center;
-  width: 30%; /* Chaque box occupe environ un tiers de la largeur */
+  width: 100%; 
 }
+
 
 .list-box .content h3 {
   display: block;
+ 
   line-height: 22px;
   font-size: 18px;
   margin-bottom: 4px;
@@ -1610,6 +1632,7 @@ div.owl-controls, .owl-controls div {
 
 .list-box .content p {
   margin-bottom: 0px;
+ 
   opacity: 0.75;
 }
 
@@ -1625,6 +1648,7 @@ div.owl-controls, .owl-controls div {
   border: 2px #F28123 dotted;
   border-radius: 999px;
 }
+
 
 
 /* -----------------------------------------------------------------------------

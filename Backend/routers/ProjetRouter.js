@@ -7,14 +7,16 @@ import { fileURLToPath } from 'url';
 // Configuration de multer pour le stockage des fichiers
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const uploadDir = 'C:/Users/ACHRAF/Desktop/Nouveau_dossier(6)'; // Répertoire de stockage des fichiers
+
+// Répertoire de stockage des fichiers
+const uploadDir = path.join(__dirname, '..', '..', 'src', 'img'); // Adaptation du chemin relatif pour pointer vers "src/img"
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, uploadDir); // Dossier de stockage
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname)); // Nom du fichier
+    cb(null, Date.now() + path.extname(file.originalname)); // Nom du fichier avec un timestamp
   }
 });
 
@@ -30,7 +32,7 @@ router.post('/addprojet', upload.array('images', 10), async (req, res) => {
     }
 
     const { title, description, date } = req.body;
-    const images = req.files.map(file => `uploads/${path.basename(file.path)}`); // Chemin relatif
+    const images = req.files.map(file => `${path.basename(file.path)}`); // Chemin relatif à "src/img"
 
     const newProjet = new Projet({
       title,
@@ -49,6 +51,7 @@ router.post('/addprojet', upload.array('images', 10), async (req, res) => {
     res.status(500).json({ message: 'Erreur lors de l\'ajout du projet', error });
   }
 });
+
 
 // Modifier un Projet
 router.put('/delprojet/:id', upload.array('images', 10), async (req, res) => {

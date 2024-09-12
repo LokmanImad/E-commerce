@@ -67,4 +67,20 @@
   .delete-button:hover {
     background-color: #c82333;
   }
+  .apply-button {
+    background-color: #4CAF50; /* Couleur verte */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin-left: 5px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
   
+  .apply-button:hover {
+    background-color: #45a049; /* Couleur plus foncée au survol */
+  }

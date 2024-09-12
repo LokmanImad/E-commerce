@@ -3,7 +3,11 @@ import Produit from '../models/Produit.js'
 import mongoose from 'mongoose';
 import { ajouterProduit, modifierProduit, supprimerProduit , getAllProduits , getProduitById  } from '../controllers/ProduitController.js';
 
+import upload from '../Middlware/Upload.js';
 const router = express.Router();
+
+
+
 
 
 // Get a product by ID
@@ -11,10 +15,9 @@ router.get('/productDetails/:id', getProduitById);
 // Route to get all product 
 router.get('/', getAllProduits);
 // Route to add a product
-router.post('/ajouter', ajouterProduit);
-
-// Route to update a product
-router.put('/modifier/:id', modifierProduit);
+router.post('/ajouter', upload.array('images', 10), ajouterProduit); // 10 est le nombre maximum de fichiers
+// Mettre à jour un produit avec plusieurs images
+router.put('/modifier/:id', upload.array('images', 10), modifierProduit);
 
 // Route to delete a product
 router.delete('/supprimer/:id', supprimerProduit);
