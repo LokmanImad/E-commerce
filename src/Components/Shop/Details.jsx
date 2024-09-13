@@ -14,9 +14,11 @@ const Details = () => {
   const [message, setMessage] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [mainImage, setMainImage] = useState('');
+  
 
   // Fetch product details by ID
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchProductDetails = async () => {
       try {
         const response = await axios.get(`http://localhost:5000/api/produit/productDetails/${id}`);
@@ -26,6 +28,7 @@ const Details = () => {
         // Fetch related products based on the category or some criteria
         const relatedResponse = await axios.get(`http://localhost:5000/api/produit?categories=${response.data.categories}`);
         setRelatedProducts(relatedResponse.data.slice(0, 3)); // Limit to 3 related products
+       
       } catch (error) {
         console.error("Error fetching product details or related products:", error);
       }
@@ -134,7 +137,7 @@ const Details = () => {
             <div className="col-md-6">
               <div className="single-product-content">
                 <h3>{product.nom}</h3>
-                <p className="single-product-pricing"><span>Par Kg</span> ${product.prix}</p>
+                <p className="single-product-pricing"><span>Par unit</span>{product.prix} DH</p>
                 <p>{product.description}</p>
                 <p><strong>Stock:</strong> {product.stock}</p>
                 <p><strong>Catégorie:</strong> {product.categories}</p>
@@ -191,11 +194,11 @@ const Details = () => {
                 <div className="single-product-item">
                   <div className="product-image">
                     <Link to={`/produit/${relatedProduct._id}`}>
-                      <img src={relatedProduct.image} alt={relatedProduct.nom} />
+                      <img src={`/src/img/Produit/${relatedProduct.images[0]}`} alt={relatedProduct.nom} />
                     </Link>
                   </div>
                   <h3>{relatedProduct.nom}</h3>
-                  <p className="product-price"><span>Par Kg</span> ${relatedProduct.prix}</p>
+                  <p className="product-price"><span>Par Unit</span> {relatedProduct.prix} Dh</p>
                   <Link to={`/produit/${relatedProduct._id}`} className="cart-btn">
                     <i className="fas fa-shopping-cart"></i> Voir les Détails
                   </Link>
@@ -205,6 +208,7 @@ const Details = () => {
           </div>
         </div>
       </div>
+      
     </div>
   );
 };

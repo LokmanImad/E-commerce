@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './main.css';
 import { Link } from 'react-router-dom';
 import Menu from '../Menu';
+import Footer from '../Footer/Footer';
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
@@ -11,7 +12,7 @@ const Shop = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const productsPerPage = 16;
+  const productsPerPage = 8;
 
   // Fetch products from the backend
   useEffect(() => {
@@ -69,7 +70,7 @@ const Shop = () => {
           <div className="row">
             <div className="col-lg-8 offset-lg-2 text-center">
               <div className="breadcrumb-text">
-                <p>Fresh and Organic</p>
+                <p>Innovative & Reliable</p>
                 <h1>Shop</h1>
               </div>
             </div>
@@ -85,9 +86,11 @@ const Shop = () => {
               <div className="product-filters">
                 <ul>
                   <li className={activeFilter === '*' ? 'active' : ''} onClick={() => handleFilterChange('*')}>All</li>
-                  <li className={activeFilter === 'd' ? 'active' : ''} onClick={() => handleFilterChange('d')}>Strawberry</li>
-                  <li className={activeFilter === 'berry' ? 'active' : ''} onClick={() => handleFilterChange('berry')}>Berry</li>
-                  <li className={activeFilter === 'lemon' ? 'active' : ''} onClick={() => handleFilterChange('lemon')}>Lemon</li>
+                  <li className={activeFilter === 'Lustre' ? 'active' : ''} onClick={() => handleFilterChange('Lustre')}>Lustre</li>
+                  <li className={activeFilter === 'Applique' ? 'active' : ''} onClick={() => handleFilterChange('Applique')}>Applique-murale</li>
+                  <li className={activeFilter === 'Solar' ? 'active' : ''} onClick={() => handleFilterChange('Solar')}>Solar</li>
+                  <li className={activeFilter === 'Spot' ? 'active' : ''} onClick={() => handleFilterChange('Spot')}>Spot</li>
+
                 </ul>
               </div>
             </div>
@@ -103,7 +106,7 @@ const Shop = () => {
                         <div className="product-image-wrapper">
                           {product.promotion > 0 && (
                             <div className="promotion-badge">
-                              {(product.prix * ( product.promotion / 100)).toFixed(2)}% OFF
+                              {(((product.prix -  product.promotion)/product.prix)*100 ).toFixed(2)}% OFF
                             </div>
                           )}
                           <img src={`/src/img/Produit/${product.images[0]}`} alt={product.nom} />
@@ -115,13 +118,13 @@ const Shop = () => {
                   <p className="product-price">
                     {product.promotion > 0 ? (
                       <>
-                        <span className="original-price">{product.prix}$</span>
+                        <span className="original-price">{product.prix} DH</span>
                         <span className="discounted-price">
-                          {product.promotion }$
+                         <h3> {product.promotion } DH </h3>
                         </span>
                       </>
                     ) : (
-                      `${product.prix}$`
+                      `${product.prix} DH`
                     )}
                   </p>
                   <Link to={`/produit/${product._id}`} className="cart-btn">
@@ -139,7 +142,7 @@ const Shop = () => {
                 <ul>
                   <li>
                     <a
-                      href="#!"
+                      href="#"
                       onClick={() => handlePageChange(currentPage - 1)}
                       disabled={currentPage === 1}
                     >
@@ -149,7 +152,7 @@ const Shop = () => {
                   {[...Array(totalPages).keys()].map(number => (
                     <li key={number + 1}>
                       <a
-                        href="#!"
+                        href="#"
                         onClick={() => handlePageChange(number + 1)}
                         className={currentPage === number + 1 ? 'active' : ''}
                       >
@@ -159,7 +162,7 @@ const Shop = () => {
                   ))}
                   <li>
                     <a
-                      href="#!"
+                      href="#"
                       onClick={() => handlePageChange(currentPage + 1)}
                       disabled={currentPage === totalPages}
                     >
@@ -172,6 +175,7 @@ const Shop = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

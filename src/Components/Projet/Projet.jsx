@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Menu from '../Menu';
+import Footer from '../Footer/Footer';
 
 const BreadcrumbSection = () => (
   <div className="breadcrumb-section breadcrumb-bg">
@@ -9,7 +10,7 @@ const BreadcrumbSection = () => (
       <div className="row">
         <div className="col-lg-8 offset-lg-2 text-center">
           <div className="breadcrumb-text">
-            <p>Organic Information</p>
+            <p>Innovative & Reliable</p>
             <h1>Nos Projets</h1>
           </div>
         </div>
@@ -18,21 +19,21 @@ const BreadcrumbSection = () => (
   </div>
 );
 
-const SingleProject = ({ imageUrl, title, date, excerpt }) => (
+const SingleProject = ({ id, imageUrl, title, date, excerpt }) => (
   <div className="col-lg-4 col-md-6">
     <div className="single-latest-news">
-      <Link to="#">
+      <Link to={`/projetdetails/${id}`}>
         <div className="latest-news-bg">
           <img src={imageUrl} alt={title} className="img-thumbnail" width="100%" />
         </div>
       </Link>
       <div className="news-text-box">
-        <h3><Link to="#">{title}</Link></h3>
+        <h3><Link to={`/projetdetails/${id}`}>{title}</Link></h3>
         <p className="blog-meta">
           <span className="date"><i className="fas fa-calendar"></i> {date}</span>
         </p>
         <p className="excerpt">{excerpt}</p>
-        <Link to="#" className="read-more-btn">read more <i className="fas fa-angle-right"></i></Link>
+        <Link to={`/projetdetails/${id}`} className="read-more-btn">read more <i className="fas fa-angle-right"></i></Link>
       </div>
     </div>
   </div>
@@ -75,6 +76,7 @@ const ProjectsPage = () => {
           {currentProjects.map((project) => (
             <SingleProject
               key={project._id}
+              id={project._id}
               imageUrl={`/src/img/${project.images[0]}`}
               title={project.title}
               date={new Date(project.date).toISOString().split('T')[0]}
@@ -130,6 +132,7 @@ const Projet = () => (
     <Menu />
     <BreadcrumbSection />
     <ProjectsPage />
+    <Footer/>
   </>
 );
 

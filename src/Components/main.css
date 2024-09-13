@@ -233,6 +233,89 @@ p:last-child {
   animation: none;
 }
 
+/* video  */
+
+.project-video-section {
+  padding: 60px 0;
+  position: relative;
+}
+
+.project-video-section .section-title {
+  margin-bottom: 20px;
+  font-size: 2rem;
+  color: #333;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%; /* Aspect ratio carré 1:1 */
+  overflow: hidden;
+}
+
+.video-container .responsive-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  object-fit: cover; /* La vidéo couvre tout le conteneur */
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .project-video-section .row {
+    flex-direction: column;
+  }
+
+  .video-container {
+    margin-top: 20px;
+    padding-bottom: 56.25%; /* Retour à un ratio 16:9 sur petits écrans */
+  }
+}
+
+/* Styles pour la modal */
+.video-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6); /* Transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  position: relative;
+  width: 40vw; /* 40% de la largeur de l'écran */
+  height: 40vw; /* Carré avec la même hauteur que largeur */
+  max-width: 500px; /* Taille maximale pour le carré */
+  max-height: 500px; /* Limiter la hauteur maximale */
+}
+
+.modal-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* La vidéo couvre tout le carré */
+}
+
+.video-modal:hover {
+  cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
 @-webkit-keyframes spinLeft {
   from {
     -webkit-transform: rotate(0deg);
@@ -523,7 +606,10 @@ a.boxed-btn, a.bordered-btn, a.cart-btn {
 
 
 
-
+.more-products {
+  margin-top: 50px; /* Ajuste cette valeur selon tes besoins */
+  margin-bottom: 50px;
+}
 
 
 /* --------------------------- */

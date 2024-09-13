@@ -21,17 +21,24 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // getbyId product 
+// backend/controllers/productController.js
 export const getProduitById = async (req, res) => {
     try {
         const produit = await Produit.findById(req.params.id);
         if (!produit) {
             return res.status(404).json({ error: 'Produit non trouvé' });
         }
-        res.status(200).json(produit);
+        // Assurez-vous que le chemin des images est correct
+        const produitAvecImages = {
+            ...produit.toObject(),
+            images: produit.images.map(image => `${image}`) // Ajustez le chemin en fonction de la configuration
+        };
+        res.status(200).json(produitAvecImages);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 };
+
 // get all product 
 export const getAllProduits = async (req, res) => {
     try {

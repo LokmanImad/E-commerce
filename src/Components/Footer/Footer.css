@@ -1,0 +1,46 @@
+.footer {
+    background-color: #000; /* Noir élégant */
+    padding: 40px 0; /* Augmenter le padding pour rendre le footer plus grand */
+  }
+  
+  .footer .container {
+    display: flex;
+    flex-direction: column; /* Afficher les éléments en colonne */
+    align-items: center; /* Centrer horizontalement */
+  }
+  
+  .footer-logo {
+    margin-bottom: 20px; /* Espace entre le logo et les icônes des réseaux sociaux */
+  }
+  
+  .company-logo {
+    width: 150px; /* Taille du logo de l'entreprise */
+  }
+  
+  .social-icons {
+    display: flex;
+    justify-content: center; /* Centrer les icônes des réseaux sociaux horizontalement */
+    gap: 20px; /* Espacement entre les icônes */
+  }
+  
+  .social-icons a {
+    color: #fff; /* Couleur des icônes des réseaux sociaux */
+    font-size: 24px;
+    transition: color 0.3s ease;
+  }
+  
+  .social-icons a:hover {
+    color: #f39c12; /* Couleur au survol (ex: orange) */
+  }
+  
+  @media (max-width: 768px) {
+    .footer .container {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .social-icons {
+      gap: 15px; /* Ajuster l'espacement entre les icônes sur mobile */
+    }
+  }
+  

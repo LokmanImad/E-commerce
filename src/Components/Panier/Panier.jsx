@@ -4,6 +4,7 @@ import Menu from '../Menu';
 import axios from 'axios';
 import { toast } from 'react-toastify'; // Importer toast
 import { useNavigate } from 'react-router-dom';
+import Footer from '../Footer/Footer';
 
 const Panier = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -103,7 +104,7 @@ const handleApplyCoupon = async (e) => {
 
 const calculateTotalWithDiscount = () => {
   const subtotal = calculateSubtotal();
-  const shipping = 45; // Coût fixe de livraison
+  const shipping = 50; // Coût fixe de livraison
   return (subtotal + shipping) * (1 - discount / 100);
 };
 
@@ -222,10 +223,10 @@ const calculateTotalWithDiscount = () => {
                             <a href="#" onClick={() => removeFromCart(item._id)}><i className="far fa-window-close"></i></a>
                           </td>
                           <td className="product-image">
-                            <img src={item.image} alt={item.nom} />
+                            <img src={`src/img/Produit/${item.images[0]}`} alt={item.nom} />
                           </td>
                           <td className="product-name">{item.nom}</td>
-                          <td className="product-price">${item.prix}</td>
+                          <td className="product-price">{item.prix} DH</td>
                           <td className="product-quantity">
                             <input 
                               type="number" 
@@ -235,7 +236,7 @@ const calculateTotalWithDiscount = () => {
                               onChange={(e) => updateQuantity(item._id, e.target.value)} 
                             />
                           </td>
-                          <td className="product-total">${item.prix * item.quantite}</td>
+                          <td className="product-total">{item.prix * item.quantite} DH</td>
                         </tr>
                       ))
                     ) : (
@@ -260,25 +261,25 @@ const calculateTotalWithDiscount = () => {
                   <tbody>
                     <tr className="total-data">
                       <td><strong>Subtotal: </strong></td>
-                      <td>${calculateSubtotal()}</td>
+                      <td>{calculateSubtotal()} DH</td>
                     </tr>
                     <tr className="total-data">
                       <td><strong>Shipping: </strong></td>
-                      <td>$45</td>
+                      <td>50 DH</td>
                     </tr>
                     <tr className="total-data">
                       <td><strong>Discount: </strong></td>
-                      <td>${discount}</td>
+                      <td>{discount} DH</td>
                     </tr>
                     <tr className="total-data">
                       <td><strong>Total: </strong></td>
-                      <td>${calculateTotalWithDiscount()}</td>
+                      <td>{calculateTotalWithDiscount()} DH</td>
                     </tr>
                   </tbody>
                 </table>
                 <div className="cart-buttons">
                   <a href="cart.html" className="boxed-btn">Update Cart</a>
-                  <button onClick={handleCheckoutClick} className="boxed-btn black">Check Out</button>
+                  <button onClick={handleCheckoutClick} className="cart-btn">Check Out</button>
                 </div>
               </div>
 
@@ -447,6 +448,7 @@ const calculateTotalWithDiscount = () => {
       `}</style>
           </div>
         </div>
+        <Footer/>
       </div>
     </>
   );

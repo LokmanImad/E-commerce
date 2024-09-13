@@ -21,7 +21,7 @@ const SideNav = ({ setActiveContent }) => {
             <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div>
           </a>
          
-          <a className="nav-link collapsed" href="#!" onClick={() => setActiveContent('Projets')} data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+          {/* <a className="nav-link collapsed" href="#!" onClick={() => setActiveContent('Projets')} data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
             <div className="sb-nav-link-icon"><i className="fas fa-book-open"></i></div>
             Projets
             <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div>
@@ -37,7 +37,7 @@ const SideNav = ({ setActiveContent }) => {
           <a className="nav-link" href="#!" onClick={() => setActiveContent('Tasks')}>
             <div className="sb-nav-link-icon"><i className="fas fa-chart-area"></i></div>
             Suivie
-          </a>
+          </a> */}
          
         </div>
       </div>

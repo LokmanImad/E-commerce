@@ -1,11 +1,15 @@
-import React from 'react';
+import React , {useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import './main.css'; // Import your CSS file
 import Menu from '../Menu';
+import Footer from '../Footer/Footer';
 
 
 function About() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
     <Menu/>
@@ -15,8 +19,8 @@ function About() {
           <div className="row">
             <div className="col-lg-8 offset-lg-2 text-center">
               <div className="breadcrumb-text">
-                <p>We sale fresh fruits</p>
-                <h1>About Us</h1>
+                <p>Innovative & Reliable</p>
+                <h1>À propos de nous</h1>
               </div>
             </div>
           </div>
@@ -38,8 +42,8 @@ function About() {
                   <i className="fas fa-clock"></i>
                 </div>
                 <div className="text-content">
-                  <h3>24/7 Support</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni, quae!</p>
+                  <h3>24/7 Assistance</h3>
+                  <p>Assistance 24/7, toujours disponible pour répondre à vos besoins.</p>
                 </div>
               </div>
             </div>
@@ -50,8 +54,8 @@ function About() {
                   <i className="fas fa-user-shield"></i>
                 </div>
                 <div className="text-content">
-                  <h3>Secure Services</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni, quae!</p>
+                  <h3>Services sécurisés</h3>
+                  <p>Nos services garantissent une sécurité maximale pour votre tranquillité d'esprit.</p>
                 </div>
               </div>
             </div>
@@ -62,8 +66,8 @@ function About() {
                   <i className="fas fa-rocket"></i>
                 </div>
                 <div className="text-content">
-                  <h3>Fast Delivery</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni, quae!</p>
+                  <h3>Livraison rapide</h3>
+                  <p>Livraison rapide et efficace, pour une satisfaction optimale et sans délai.!</p>
                 </div>
               </div>
             </div>
@@ -74,8 +78,8 @@ function About() {
                   <i className="fas fa-thumbs-up"></i>
                 </div>
                 <div className="text-content">
-                  <h3>Customer Satisfaction</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni, quae!</p>
+                  <h3>Satisfaction client</h3>
+                  <p>Votre satisfaction est notre priorité, nous offrons des produits de qualité avec un service personnalisé</p>
                 </div>
               </div>
             </div>
@@ -108,16 +112,16 @@ function About() {
       {/* Right side with company description */}
       <div className="col-lg-7">
         <div className="company-info">
-          <h2>About <span className="highlighted-orange">Our Company</span></h2>
+          <h2>À propos <span className="highlighted-orange">de notre entreprise</span></h2>
           <p className="company-text">
-            We are a leading company in the electrical equipment industry, providing high-quality products and exceptional services to our clients worldwide. Our mission is to deliver innovative solutions and ensure customer satisfaction at every step.
+          Chez E-rotman, nous sommes experts dans la fourniture et la gestion d'équipements électriques de haute qualité, ainsi que dans la réalisation de projets électriques complexes. Depuis notre création, nous avons dédié nos efforts à offrir des solutions innovantes et fiables pour répondre aux besoins diversifiés de nos clients. Notre expertise inclut non seulement la vente et l'achat de matériel électrique, mais également la gestion complète de projets d'électricité, de la conception à la mise en œuvre. Avec une équipe de professionnels expérimentés, nous nous engageons à offrir un service client exceptionnel et à garantir la réussite de chaque projet. E-rotman est votre partenaire de confiance pour vos besoins en équipement électrique et pour la gestion de vos projets électriques.
           </p>
           <div className="qualities-list">
             <div className="row">
               <div className="col-md-6 mb-4">
                 <div className="quality-box d-flex">
                   <i className="fas fa-certificate"></i>
-                  <p>Certified Quality</p>
+                  <p>Qualité certifiée</p>
                 </div>
               </div>
               <div className="col-md-6 mb-4">
@@ -135,7 +139,7 @@ function About() {
               <div className="col-md-6 mb-4">
                 <div className="quality-box d-flex">
                   <i className="fas fa-handshake"></i>
-                  <p>Trusted Partner</p>
+                  <p>Partenaire de confiance</p>
                 </div>
               </div>
             </div>
@@ -152,8 +156,8 @@ function About() {
           <div className="row">
             <div className="col-lg-8 offset-lg-2 text-center">
               <div className="section-title">
-                <h3>Our <span className="orange-text">Team</span></h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, fuga quas itaque eveniet beatae optio.</p>
+                <h3>Notre <span className="orange-text">Équipe</span></h3>
+                <p>Notre équipe dédiée, professionnelle et passionnée vous accompagne à chaque étape.</p>
               </div>
             </div>
           </div>
@@ -161,7 +165,7 @@ function About() {
             <div className="col-lg-4 col-md-6">
               <div className="single-team-item">
                 <div className="team-bg team-bg-1"></div>
-                <h4>Jimmy Doe <span>Farmer</span></h4>
+                <h4>Mohammed <span>Mohammed</span></h4>
                 <ul className="social-link-team">
                   <li><a href="#" target="_blank" rel="noopener noreferrer"><i className="fab fa-facebook-f"></i></a></li>
                   <li><a href="#" target="_blank" rel="noopener noreferrer"><i className="fab fa-twitter"></i></a></li>
@@ -172,7 +176,7 @@ function About() {
             <div className="col-lg-4 col-md-6">
               <div className="single-team-item">
                 <div className="team-bg team-bg-2"></div>
-                <h4>Marry Doe <span>Farmer</span></h4>
+                <h4>Mohammed<span>Mohammed</span></h4>
                 <ul className="social-link-team">
                   <li><a href="#" target="_blank" rel="noopener noreferrer"><i className="fab fa-facebook-f"></i></a></li>
                   <li><a href="#" target="_blank" rel="noopener noreferrer"><i className="fab fa-twitter"></i></a></li>
@@ -183,7 +187,7 @@ function About() {
             <div className="col-lg-4 col-md-6 offset-md-3 offset-lg-0">
               <div className="single-team-item">
                 <div className="team-bg team-bg-3"></div>
-                <h4>Simon Joe <span>Farmer</span></h4>
+                <h4>Mohammed<span>Mohammed</span></h4>
                 <ul className="social-link-team">
                   <li><a href="#" target="_blank" rel="noopener noreferrer"><i className="fab fa-facebook-f"></i></a></li>
                   <li><a href="#" target="_blank" rel="noopener noreferrer"><i className="fab fa-twitter"></i></a></li>
@@ -193,6 +197,7 @@ function About() {
             </div>
           </div>
         </div>
+        <Footer/>
       </div>
       {/* end team section */}
     </>

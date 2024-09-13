@@ -2,6 +2,7 @@
 import React from 'react';
 import './main.css'
 import Menu from '../Menu';
+import Footer from '../Footer/Footer';
 
 const Contact = () => {
   return (
@@ -13,8 +14,8 @@ const Contact = () => {
           <div className="row">
             <div className="col-lg-8 offset-lg-2 text-center">
               <div className="breadcrumb-text">
-                <p>Get 24/7 Support</p>
-                <h1>Contact us</h1>
+                <p>Bénéficiez d'une assistance 24h/7j</p>
+                <h1>Contactez-nous</h1>
               </div>
             </div>
           </div>
@@ -27,8 +28,8 @@ const Contact = () => {
           <div className="row">
             <div className="col-lg-8 mb-5 mb-lg-0">
               <div className="form-title">
-                <h2>Have you any question?</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, ratione! Laboriosam est, assumenda. Perferendis, quo alias quaerat aliquid. Corporis ipsum minus voluptate? Dolore, esse natus!</p>
+                <h2>Avez-vous des questions ?</h2>
+                <p>Si vous avez des interrogations ou souhaitez obtenir plus d'informations, n'hésitez pas à nous contacter. Notre équipe se tient à votre disposition pour répondre à toutes vos questions et vous accompagner dans votre projet</p>
               </div>
               <div id="form_status"></div>
               <div className="contact-form">
@@ -54,16 +55,16 @@ const Contact = () => {
             <div className="col-lg-4">
               <div className="contact-form-wrap">
                 <div className="contact-form-box">
-                  <h4><i className="fas fa-map"></i> Shop Address</h4>
-                  <p>34/8, East Hukupara <br /> Gifirtok, Sadan. <br /> Country Name</p>
+                  <h4><i className="fas fa-map"></i>Address</h4>
+                  <p>N° 66 Av. Al Qods <br /> Tanger 90060 <br />Maroc</p>
                 </div>
                 <div className="contact-form-box">
-                  <h4><i className="far fa-clock"></i> Shop Hours</h4>
-                  <p>MON - FRIDAY: 8 to 9 PM <br /> SAT - SUN: 10 to 8 PM </p>
+                  <h4><i className="far fa-clock"></i>Horaires d'ouverture</h4>
+                  <p>Lundi - Vendredi : 9:00 - 20:00  <br /> Samedi : 9:00 - 18:00  </p>
                 </div>
                 <div className="contact-form-box">
                   <h4><i className="fas fa-address-book"></i> Contact</h4>
-                  <p>Phone: +00 111 222 3333 <br /> Email: support@fruitkha.com</p>
+                  <p>Telephone: +212 5 22 34 42 <br /> Email: support@Ertoman.com</p>
                 </div>
               </div>
             </div>
@@ -94,6 +95,7 @@ const Contact = () => {
           className="embed-responsive-item"
         ></iframe>
       </div>
+      <Footer/>
     </div>
   );
 };

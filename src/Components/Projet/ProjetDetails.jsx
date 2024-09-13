@@ -66,7 +66,7 @@ const ProjetDetails = () => {
               <div className="thumbnail-gallery">
                 {projet.images.map((image, index) => (
                   <div key={index} className="thumbnail" onClick={() => handleThumbnailClick(image)}>
-                    <img src={`/src/img/Projet/${image}`} alt={`Thumbnail ${index + 1}`} />
+                    <img src={`/src/img/${image}`} alt={`Thumbnail ${index + 1}`} />
                   </div>
                 ))}
               </div>
@@ -106,13 +106,13 @@ const ProjetDetails = () => {
                 <div key={relatedProject._id} className="col-lg-4 col-md-6 text-center">
                   <div className="single-project-item">
                     <div className="project-image">
-                      <Link to={`/projet/${relatedProject._id}`}>
+                      <Link to={`/projetDetails/${relatedProject._id}`}>
                         <img src={`/src/img/${relatedProject.images[0]}`} alt={relatedProject.nom} className="img-fluid" />
                       </Link>
                     </div>
                     <h3>{relatedProject.nom}</h3>
                     <p><strong>Date de début:</strong> {new Date(relatedProject.date).toLocaleDateString()}</p>
-                    <Link to={`/projet/${relatedProject._id}`} className="cart-btn">
+                    <Link to={`/projetDetails/${relatedProject._id}`} className="cart-btn">
                       <i className="fas fa-info-circle"></i> Voir les Détails
                     </Link>
                   </div>

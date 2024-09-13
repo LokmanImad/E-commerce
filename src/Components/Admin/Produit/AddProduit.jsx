@@ -12,6 +12,7 @@ const AddProduit = () => {
     categories: '',
   });
   const [images, setImages] = useState([]);
+  const [imagePreviews, setImagePreviews] = useState([]);
   const { id } = useParams(); // Récupérer l'ID du produit à modifier
   const navigate = useNavigate();
 
@@ -20,7 +21,7 @@ const AddProduit = () => {
       // Si un ID est présent, on récupère les données du produit à modifier
       const fetchProduct = async () => {
         try {
-          const response = await axios.get(`http://localhost:5000/api/produit/getproduit/${id}`);
+          const response = await axios.get(`http://localhost:5000/api/produit/productDetails/${id}`);
           const productData = response.data;
           setFormData({
             nom: productData.nom || '',
@@ -29,7 +30,8 @@ const AddProduit = () => {
             stock: productData.stock || '',
             categories: productData.categories || '',
           });
-          // On ne charge pas les images ici pour éviter de les afficher dans le formulaire
+          // Configurer les aperçus des images récupérées
+          setImagePreviews(productData.images || []);
         } catch (error) {
           console.error("Erreur lors de la récupération du produit :", error);
         }
@@ -38,12 +40,26 @@ const AddProduit = () => {
     }
   }, [id]);
 
+  useEffect(() => {
+    // Nettoyer les prévisualisations des images lorsque le composant est démonté ou les prévisualisations changent
+    return () => {
+      imagePreviews.forEach(preview => URL.revokeObjectURL(preview));
+    };
+  }, [imagePreviews]);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleFileChange = (e) => {
-    setImages(Array.from(e.target.files)); // Stocke plusieurs fichiers
+    const files = Array.from(e.target.files);
+    setImages(files);
+
+    // Créez des aperçus des fichiers pour l'affichage
+    const previews = files.map(file => URL.createObjectURL(file));
+    setImagePreviews(previews);
+
+    console.log(previews); // Vérifiez que les previews sont générés
   };
 
   const handleSubmit = async (e) => {
@@ -63,7 +79,7 @@ const AddProduit = () => {
     try {
       if (id) {
         // Si un ID est présent, on est en mode modification
-        await axios.put(`http://localhost:5000/api/produit/updateproduit/${id}`, formDataToSend, {
+        await axios.put(`http://localhost:5000/api/produit/modifier/${id}`, formDataToSend, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
@@ -154,6 +170,16 @@ const AddProduit = () => {
               onChange={handleFileChange} 
               multiple // Permet la sélection de plusieurs fichiers
             />
+            <div className="mt-3">
+              {imagePreviews.map((preview, index) => (
+                <img 
+                  key={index} 
+                  src={preview} 
+                  alt={`preview ${preview}`} 
+                  style={{ width: '100px', height: '100px', objectFit: 'cover', marginRight: '10px' }} 
+                />
+              ))}
+            </div>
           </div>
 
           <button type="submit" className="btn btn-primary w-100">

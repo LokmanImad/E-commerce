@@ -33,7 +33,7 @@ export const login = async (req, res) => {
     if (!isMatch) return res.status(400).json({ message: 'Mot de passe incorrect.' });
 
     const token = jwt.sign({ id: user._id, role: user.role }, JWT_SECRET, { expiresIn: '1h' });
-    res.status(200).json({ token, user: { id: user._id, name: user.name, email: user.email, role: user.role } });
+    res.status(200).json({ token, user: { id: user._id, name: user.name, email: user.email, role: user.role , address : user.address , phone : user.phone } });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
