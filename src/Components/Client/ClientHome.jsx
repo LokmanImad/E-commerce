@@ -123,7 +123,7 @@ const handleUpdateAllModal = () => setShowUpdateAllModal(!showUpdateAllModal);
   return (
     <div className="container-fluid px-4">
       {/* <h2>{UserConect ? `Hello ${UserConect.name}` : "Loading..."}</h2> */}
-      <h1 className="mt-4">{activeContent}</h1>
+     
 
       <div className="row">
         {activeContent === "AdminHome" && (
@@ -148,7 +148,7 @@ const handleUpdateAllModal = () => setShowUpdateAllModal(!showUpdateAllModal);
             </>
           ) : (
             <Alert variant="info">
-              You have not completed your profile. Please provide your phone number and address.
+              Vous n'avez pas complété votre profil. Veuillez indiquer votre numéro de téléphone et votre adresse.
             </Alert>
           )}
 

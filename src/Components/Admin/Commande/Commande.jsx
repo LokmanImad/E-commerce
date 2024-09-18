@@ -110,7 +110,7 @@ const Commande = () => {
                 <td>{order._id}</td>
                 <td>{order.user.name}</td>
                 <td>{new Date(order.DateCommande).toLocaleDateString()}</td>
-                <td>${order.Total}</td>
+                <td>{order.Total} DH</td>
                 <td>
                   <Form.Select
                     value={order.Etat}
@@ -166,8 +166,8 @@ const Commande = () => {
                             <tr key={index}>
                               <td>{product.produit.nom}</td>
                               <td>{product.quantite}</td>
-                              <td>${product.produit.prix}</td>
-                              <td>${product.quantite * product.produit.prix}</td>
+                              <td>{product.produit.prix} DH</td>
+                              <td>{product.quantite * product.produit.prix} DH</td>
                             </tr>
                           ))}
                         </tbody>
@@ -216,8 +216,8 @@ const Commande = () => {
                     <tr key={index}>
                       <td>{product.produit.nom}</td>
                       <td>{product.quantite}</td>
-                      <td>${product.produit.prix}</td>
-                      <td>${product.quantite * product.produit.prix}</td>
+                      <td>{product.produit.prix} DH</td>
+                      <td>{product.quantite * product.produit.prix} DH</td>
                     </tr>
                   ))}
                 </tbody>

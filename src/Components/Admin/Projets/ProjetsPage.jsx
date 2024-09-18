@@ -2,6 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Modal, Button } from 'react-bootstrap';
+import './Projets.modul.css'
+// Fonction utilitaire pour tronquer le texte
+const truncateText = (text, maxLength) => {
+  if (text.length > maxLength) {
+    return text.substring(0, maxLength) + '...';
+  }
+  return text;
+};
 
 // Composant de formulaire de projet
 const ProjectForm = ({ project, onSubmit, onCancel }) => {
@@ -37,7 +45,7 @@ const ProjectForm = ({ project, onSubmit, onCancel }) => {
   };
 
   return (
-    <div className="mb-4">
+    <div className="mb-4 project-form">
       <div className="card">
         <div className="card-header">
           <h5>{project ? 'Edit Project' : 'Add New Project'}</h5>
@@ -106,6 +114,7 @@ const ProjetsPage = () => {
   const [showForm, setShowForm] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [imagesToShow, setImagesToShow] = useState([]);
+  const [expandedProject, setExpandedProject] = useState(null);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -167,9 +176,12 @@ const ProjetsPage = () => {
     }
   };
 
+  const handleExpand = (id) => {
+    setExpandedProject(expandedProject === id ? null : id);
+  };
+
   return (
-    
-    <div className="container mt-5">
+    <div className="projects-page">
       <h1>Projets </h1>
       <button className="btn btn-primary mb-4" onClick={handleAddProject}>Add New Project</button>
 
@@ -195,8 +207,20 @@ const ProjetsPage = () => {
           <tbody>
             {projects.map(project => (
               <tr key={project._id}>
-                <td>{project.title}</td>
-                <td>{project.description}</td>
+                <td className="title-cell">
+  {project.title}
+</td>
+                <td className="description-cell">
+  {expandedProject === project._id 
+    ? project.description 
+    : truncateText(project.description, 100)}
+  <button
+    className="btn btn-link btn-sm"
+    onClick={() => handleExpand(project._id)}
+  >
+    {expandedProject === project._id ? 'Read less' : 'Read more'}
+  </button>
+</td>
                 <td>{new Date(project.date).toISOString().split('T')[0]}</td>
                 <td>
                   <button className="btn btn-info btn-sm" onClick={() => handleShowImages(project.images)}>View Images</button>
@@ -211,20 +235,28 @@ const ProjetsPage = () => {
         </table>
       </div>
 
-      {/* Modal to show images */}
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
+      <Modal
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        dialogClassName="modal-dialog-centered"
+        size="lg"
+      >
         <Modal.Header closeButton>
           <Modal.Title>Project Images</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {imagesToShow.map((img, index) => (
-            <img key={index} src={`/src/img/${img}`} alt={`Project ${img}`} className="img-thumbnail mb-2" width="100%" />
-          ))}
+          {imagesToShow.length > 0 ? (
+            <div className="d-flex flex-wrap justify-content-center align-items-center" style={{ height: '100%' }}>
+              {imagesToShow.map((image, index) => (
+                <img key={index} src={`src/img/${image}`} alt={`Project Image ${index + 1}`} className="img-fluid" style={{ margin: '10px' }} />
+              ))}
+            </div>
+          ) : (
+            <p>No images available.</p>
+          )}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowModal(false)}>
-            Close
-          </Button>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>Close</Button>
         </Modal.Footer>
       </Modal>
     </div>

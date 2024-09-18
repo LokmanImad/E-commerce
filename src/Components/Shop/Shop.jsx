@@ -115,16 +115,16 @@ const Shop = () => {
                     </a>
                   </div>
                   <h3>{product.nom}</h3>
-                  <p className="product-price">
+                  <p className="product-price" >
                     {product.promotion > 0 ? (
                       <>
-                        <span className="original-price">{product.prix} DH</span>
-                        <span className="discounted-price">
-                         <h3> {product.promotion } DH </h3>
+                        <span className="original-price" >{product.prix} DH</span>
+                        <span className="discounted-price" style={{  fontSize: '0.8em', fontWeight: 'bold' }}  >
+                          {product.promotion } DH 
                         </span>
                       </>
                     ) : (
-                      `${product.prix} DH`
+                      <span style={{  fontSize: '0.8em', fontWeight: 'bold' }}>{product.prix} DH</span>
                     )}
                   </p>
                   <Link to={`/produit/${product._id}`} className="cart-btn">

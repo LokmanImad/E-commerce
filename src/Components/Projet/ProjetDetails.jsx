@@ -4,6 +4,8 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Menu from '../Menu'; // Assurez-vous d'importer votre composant Menu
 import './main.css'; // Assurez-vous de créer ce fichier pour les styles CSS
+import Footer from '../Footer/Footer';
+
 
 const ProjetDetails = () => {
   const { id } = useParams(); // Récupère l'ID du projet à partir de l'URL
@@ -74,10 +76,12 @@ const ProjetDetails = () => {
             <div className="col-md-6">
               <div className="single-project-content">
                 <h3>{projet.nom}</h3>
-                <p><strong>Description:</strong> {projet.description}</p>
-                <p><strong>Date de début:</strong> {new Date(projet.date).toLocaleDateString()}</p>
-                <p><strong>Date de fin:</strong> {new Date(projet.dateFin).toLocaleDateString()}</p>
-                <p><strong>Catégorie:</strong> {projet.categories}</p>
+                <p><strong>Date de projet:</strong> {new Date(projet.date).toLocaleDateString()}</p>
+
+                <p><strong>Description:</strong><br/> {projet.description}</p>
+                
+               
+              
               </div>
             </div>
           </div>
@@ -111,7 +115,7 @@ const ProjetDetails = () => {
                       </Link>
                     </div>
                     <h3>{relatedProject.nom}</h3>
-                    <p><strong>Date de début:</strong> {new Date(relatedProject.date).toLocaleDateString()}</p>
+                    <p><strong>Date de projet:</strong> {new Date(relatedProject.date).toLocaleDateString()}</p>
                     <Link to={`/projetDetails/${relatedProject._id}`} className="cart-btn">
                       <i className="fas fa-info-circle"></i> Voir les Détails
                     </Link>
@@ -122,6 +126,7 @@ const ProjetDetails = () => {
           </div>
         </div>
       </div>
+      <Footer/>
 
 
     </div>

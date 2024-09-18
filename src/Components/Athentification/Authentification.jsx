@@ -55,8 +55,9 @@ const Authentification = () => {
             navigate('/admin');
           } else if (user.role === 'client') {
             navigate('/client');
-          } else {
-            navigate('/'); // Redirection par défaut si le rôle est inconnu
+          } 
+          else {
+            navigate('/client'); // Redirection par défaut si le rôle est inconnu
           }
         } else {
           setMessage('Inscription réussie, veuillez vous connecter.');

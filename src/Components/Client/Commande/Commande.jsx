@@ -29,8 +29,9 @@ const Commande = () => {
           <tr>
             <th>Date</th>
             <th>Produits</th>
-            <th>Total</th>
             <th>État</th>
+            <th>Total</th>
+            
           </tr>
         </thead>
         <tbody>
@@ -46,7 +47,7 @@ const Commande = () => {
                   ))}
                 </td>
                 <td>{order.Etat}</td>
-                <td>${order.Total}</td>
+                <td>{order.Total} DH</td>
               </tr>
             ))
           ) : (

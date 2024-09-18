@@ -2886,7 +2886,7 @@ table.order-details tbody td {
 
 .discounted-price {
   font-weight: bold;
-  color: #e74c3c;
+  color: green;
   margin-bottom: 5px;
 }
 

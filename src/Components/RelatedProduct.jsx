@@ -34,22 +34,34 @@ const RelatedProduct = () => {
           </div>
         </div>
         <div className="row">
-          {products.map((product, index) => (
-            <div key={index} className="col-lg-4 col-md-6 text-center">
-              <div className="single-product-item">
-                <div className="product-image">
-                  <Link to={`/product/${product._id}`}>
-                    <img
-                      src={`/src/img/Produit/${product.images[0]}`}
-                      alt={product.nom}
-                      className="img-fluid"
-                    />
-                  </Link>
-                </div>
-                <h3>{product.nom}</h3>
-                <p className="product-price">
-                  <span>Par unit</span> {product.prix} DH
-                </p>
+        {products.map((product) => (
+              <div key={product._id} className="col-lg-4 col-md-6 text-center">
+                <div className="single-product-item">
+                {product.promotion > 0 && (
+                            <div className="promotion-badge">
+                              {(((product.prix -  product.promotion)/product.prix)*100 ).toFixed(2)}% OFF
+                            </div>
+                          )}
+                  <div className="product-image">
+                    <Link to={`/produit/${product._id}`}>
+                      <img src={`/src/img/Produit/${product.images[0]}`} alt={product.nom} />
+                    </Link>
+                  </div>
+                  <h3>{product.nom}</h3>
+
+                  <p className="single-product-pricing">
+    <span>Par unité : </span>
+    {product.promotion > 0 ? (
+      <>
+       
+        <span className="promotion-price" style={{ color: 'green' , fontSize: '1.8em' }}><strong>{product.promotion} DH</strong>
+          
+        </span>
+      </>
+    ) : (
+      <span style={{  fontSize: '1.8em' }} > <strong>{product.prix} DH</strong></span>
+    )}
+  </p>
                 <Link to={`/product/${product._id}`} className="cart-btn btn btn-primary">
                   <i className="fas fa-shopping-cart"></i> Voir les Détails
                 </Link>

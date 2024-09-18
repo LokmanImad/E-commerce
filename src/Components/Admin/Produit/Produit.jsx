@@ -89,7 +89,7 @@ const Produit = () => {
           {products.map((product) => (
             <tr key={product._id}>
               <td>{product.nom}</td>
-              <td>{product.prix} €</td>
+              <td>{product.prix} DH</td>
               <td>{product.stock}</td>
               <td>{product.categories}</td>
               <td>

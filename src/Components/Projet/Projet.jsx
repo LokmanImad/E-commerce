@@ -19,25 +19,43 @@ const BreadcrumbSection = () => (
   </div>
 );
 
-const SingleProject = ({ id, imageUrl, title, date, excerpt }) => (
-  <div className="col-lg-4 col-md-6">
-    <div className="single-latest-news">
-      <Link to={`/projetdetails/${id}`}>
-        <div className="latest-news-bg">
-          <img src={imageUrl} alt={title} className="img-thumbnail" width="100%" />
+const SingleProject = ({ id, imageUrl, title, date, excerpt }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const maxExcerptLength = 100; // Nombre maximum de caractères à afficher
+
+  // Fonction pour gérer l'affichage de la description complète
+  const toggleDescription = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  return (
+    <div className="col-lg-4 col-md-6">
+      <div className="single-latest-news">
+        <Link to={`/projetdetails/${id}`}>
+          <div className="latest-news-bg">
+            <img src={imageUrl} alt={title} className="img-thumbnail" width="100%" />
+          </div>
+        </Link>
+        <div className="news-text-box">
+          <h3><Link to={`/projetdetails/${id}`}>{title}</Link></h3>
+          <p className="blog-meta">
+            <span className="date"><i className="fas fa-calendar"></i> {date}</span>
+          </p>
+          
+          {/* Affichage de la description avec limitation de caractères */}
+          <p className="excerpt">
+            {isExpanded ? excerpt : `${excerpt.substring(0, maxExcerptLength)}...`}
+            
+          </p>
+
+          <Link to={`/projetdetails/${id}`} className="read-more-btn">
+            En savoir plus <i className="fas fa-angle-right"></i>
+          </Link>
         </div>
-      </Link>
-      <div className="news-text-box">
-        <h3><Link to={`/projetdetails/${id}`}>{title}</Link></h3>
-        <p className="blog-meta">
-          <span className="date"><i className="fas fa-calendar"></i> {date}</span>
-        </p>
-        <p className="excerpt">{excerpt}</p>
-        <Link to={`/projetdetails/${id}`} className="read-more-btn">read more <i className="fas fa-angle-right"></i></Link>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 const ProjectsPage = () => {
   const [projects, setProjects] = useState([]);

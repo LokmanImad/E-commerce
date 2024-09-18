@@ -269,7 +269,7 @@ const calculateTotalWithDiscount = () => {
                     </tr>
                     <tr className="total-data">
                       <td><strong>Discount: </strong></td>
-                      <td>{discount} DH</td>
+                      <td>{discount} %</td>
                     </tr>
                     <tr className="total-data">
                       <td><strong>Total: </strong></td>

@@ -4,7 +4,8 @@ import "./styles.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import { useNavigate } from "react-router-dom";
+import { useNavigate , Link } from "react-router-dom";
+
 
 
 
@@ -72,9 +73,9 @@ const NavBarClient = () => {
               </a>
             </li>
             <li>
-              <a className="dropdown-item" href="#!">
-                Activity Log
-              </a>
+              <Link className="dropdown-item" to="/Produit" href="#!">
+                Boutique
+              </Link>
             </li>
             <li>
               <hr className="dropdown-divider" />

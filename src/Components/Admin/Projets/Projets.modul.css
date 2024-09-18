@@ -1,0 +1,95 @@
+
+  
+  .project-form {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .project-list {
+    margin-top: 20px;
+  }
+  
+  .project-item {
+    background-color: #e9ecef;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+  }
+  
+  .project-item h3 {
+    margin: 0;
+  }
+  
+  .project-item span {
+    display: block;
+    color: #6c757d;
+    margin-top: 10px;
+  }
+  
+  /* Style du modal pour qu'il occupe toute la largeur de l'écran */
+/* Style du modal pour avoir un défilement vertical */
+.modal-dialog {
+  max-width: 90%; /* Ajustez la largeur maximale du modal si nécessaire */
+}
+
+.modal-content {
+  height: 80vh; /* Ajustez la hauteur du modal si nécessaire */
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-body {
+  flex: 1;
+  overflow-y: auto; /* Ajoute une barre de défilement vertical si nécessaire */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-body img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* Ajuste les images pour qu'elles s'adaptent à l'espace */
+  margin: 10px; /* Marge entre les images */
+}
+
+.description-cell {
+  max-width: 200px; /* Ajustez la largeur maximale selon vos besoins */
+   /* Empêche le texte de se casser sur plusieurs lignes */
+}
+.title-cell {
+  max-width: 150px; /* Ajustez la largeur maximale selon vos besoins */
+ 
+}
+

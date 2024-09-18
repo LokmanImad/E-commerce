@@ -58,9 +58,9 @@ const Menu= () => {
             <div className="main-menu-wrap">
               {/* logo */}
               <div className="site-logo">
-                <a href="index.html">
+                <Link to={"/"} >
                   <img src="/src/img/EROTMAN.png"  alt="Site Logo" />
-                </a>
+                </Link>
               </div>
               {/* logo */}
 
@@ -71,6 +71,9 @@ const Menu= () => {
                     <Link to={'/'}>Home</Link>
                    
                   </li>
+                  <li>
+                    <Link to={'/Produit'}>Shop</Link>
+                    </li>
                   <li><Link to={"/About"}>About</Link></li>
                   {/* <li>
                     <a href="#">Pages</a>
@@ -89,15 +92,14 @@ const Menu= () => {
                     
                   </li>
                   <li><Link to={"/Contacte"}>Contact</Link></li>
-                  <li>
-                    <Link to={'/Produit'}>Shop</Link>
-                    <ul className="sub-menu">
+                 
+                    {/* <ul className="sub-menu">
                       <li><a href="shop.html">Shop</a></li>
                       <li><a href="checkout.html">Check Out</a></li>
                       <li><a href="single-product.html">Single Product</a></li>
                       <li><a href="cart.html">Cart</a></li>
-                    </ul>
-                  </li>
+                    </ul> */}
+               
                   <li>
                     <div className="header-icons">
                       {/* Panier Icon */}

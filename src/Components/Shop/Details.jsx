@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Menu from '../Menu';
 import { toast } from 'react-toastify';
 import './main.css'; // Assurez-vous de créer ce fichier pour les styles CSS
+import Footer from '../Footer/Footer';
 
 const Details = () => {
   const { id } = useParams(); // Get the product ID from the URL
@@ -137,7 +138,21 @@ const Details = () => {
             <div className="col-md-6">
               <div className="single-product-content">
                 <h3>{product.nom}</h3>
-                <p className="single-product-pricing"><span>Par unit</span>{product.prix} DH</p>
+                <p className="single-product-pricing">
+    <span>Par unité : </span>
+    {product.promotion > 0 ? (
+      <>
+        <span className="original-price" style={{ textDecoration: 'line-through', marginRight: '10px' }}>
+          {product.prix} DH
+        </span>
+        <span className="promotion-price" style={{ color: 'green' , fontSize: '0.8em' }}>
+          <strong>{product.promotion} DH</strong>
+        </span>
+      </>
+    ) : (
+      <span>{product.prix} DH</span>
+    )}
+  </p>
                 <p>{product.description}</p>
                 <p><strong>Stock:</strong> {product.stock}</p>
                 <p><strong>Catégorie:</strong> {product.categories}</p>
@@ -192,13 +207,34 @@ const Details = () => {
             {relatedProducts.map((relatedProduct) => (
               <div key={relatedProduct._id} className="col-lg-4 col-md-6 text-center">
                 <div className="single-product-item">
+                {relatedProduct.promotion > 0 && (
+                            <div className="promotion-badge">
+                              {(((relatedProduct.prix -  relatedProduct.promotion)/relatedProduct.prix)*100 ).toFixed(2)}% OFF
+                            </div>
+                          )}
                   <div className="product-image">
                     <Link to={`/produit/${relatedProduct._id}`}>
                       <img src={`/src/img/Produit/${relatedProduct.images[0]}`} alt={relatedProduct.nom} />
                     </Link>
                   </div>
                   <h3>{relatedProduct.nom}</h3>
-                  <p className="product-price"><span>Par Unit</span> {relatedProduct.prix} Dh</p>
+
+                  <p className="single-product-pricing">
+    <span>Par unité : </span>
+    {relatedProduct.promotion > 0 ? (
+      <>
+       
+        <span className="promotion-price" style={{ color: 'green' , fontSize: '1.8em' }}><strong>{relatedProduct.promotion} DH</strong>
+          
+        </span>
+      </>
+    ) : (
+      <span style={{  fontSize: '1.8em' }} > <strong>{relatedProduct.prix} DH</strong></span>
+    )}
+  </p>
+
+
+
                   <Link to={`/produit/${relatedProduct._id}`} className="cart-btn">
                     <i className="fas fa-shopping-cart"></i> Voir les Détails
                   </Link>
@@ -208,6 +244,7 @@ const Details = () => {
           </div>
         </div>
       </div>
+      <Footer/>
       
     </div>
   );
